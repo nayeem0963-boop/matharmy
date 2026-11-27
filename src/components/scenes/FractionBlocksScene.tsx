@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import * as THREE from 'three'
+import { ParticleBurst } from '../canvas/ParticleBurst'
+import { playPop } from '../../utils/soundEffects'
 
 interface FractionBlocksSceneProps {
   numerator: number
@@ -8,6 +10,8 @@ interface FractionBlocksSceneProps {
   color?: string
   /** Called with a new numerator when a block is clicked. */
   onSelectNumerator?: (numerator: number) => void
+  /** Increment to fire a celebration burst. */
+  burstKey?: number
 }
 
 const BAR_LENGTH = 6
@@ -27,6 +31,7 @@ export function FractionBlocksScene({
   denominator,
   color = '#f59e0b',
   onSelectNumerator,
+  burstKey = 0,
 }: FractionBlocksSceneProps) {
   const safeDen = Math.max(1, Math.floor(denominator))
   const safeNum = Math.max(0, Math.floor(numerator))
@@ -102,9 +107,12 @@ export function FractionBlocksScene({
         geometry={groundGeometry}
         material={groundMaterial}
       />
+      <ParticleBurst trigger={burstKey} position={[0, BAR_HEIGHT + 0.6, 0]} color={color} />
     </group>
   )
 }
+
+export default FractionBlocksScene
 
 interface FractionBlockProps {
   position: [number, number, number]
@@ -144,6 +152,7 @@ function FractionBlock({ position, geometry, material, onClick }: FractionBlockP
       receiveShadow
       onPointerOver={(e: ThreeEvent<PointerEvent>) => {
         e.stopPropagation()
+        if (!hovered) playPop()
         setHovered(true)
       }}
       onPointerOut={() => setHovered(false)}
