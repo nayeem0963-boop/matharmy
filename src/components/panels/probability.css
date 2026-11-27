@@ -1,0 +1,77 @@
+/* Probability: bar labels and the theory / experiment rows */
+.spin-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: var(--text-h);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  pointer-events: none;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.spin-label small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+.chance-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.chance-rows li {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  align-items: start;
+  gap: 6px;
+}
+.chance-rows__dot {
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  border-radius: 50%;
+}
+.chance-rows__main {
+  color: var(--text-h);
+  font-weight: 600;
+}
+.chance-rows__sub {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+}
+.spin-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.spin-buttons button {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+.spin-buttons button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.spin-buttons button:not(:disabled):hover {
+  border-color: var(--module-color);
+}
+@media (max-width: 800px) {
+  .chance-rows__sub {
+    display: none;
+  }
+}

@@ -31,7 +31,7 @@ describe('welcome page grouping', () => {
     const geometry = screen.getByRole('region', { name: 'Geometry and Measurement' })
     expect(cardTitles(geometry)).toEqual(['Area and Perimeter', 'Angles', 'Geometry 3D Explorer', 'Coordinate Plane'])
     const thinking = screen.getByRole('region', { name: 'Mathematical Thinking' })
-    expect(cardTitles(thinking)).toEqual(['Patterns and Sequences', 'Data and Graphs'])
+    expect(cardTitles(thinking)).toEqual(['Patterns and Sequences', 'Data and Graphs', 'Probability'])
   })
 
   it('shows every module exactly once under "All grades"', async () => {

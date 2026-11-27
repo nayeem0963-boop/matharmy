@@ -451,12 +451,13 @@ Still not built: missions, lessons, student profiles, export/import of progress.
 - **Angles** (grades 3-7): a 3D protractor you can click to turn the ray, angles named (acute, right, obtuse, straight, reflex, full turn), complement / supplement / full-turn partners, share of a turn, 12 challenges, a badge. Replaces the 'Coming soon' teaser.
 - **Coordinate Plane** (grades 5-7): a -6..6 plane with plotted points (click or steppers), quadrants, distances from the axes, and a triangle you can slide, flip and turn (with its faint starting copy and a move history), 12 challenges, a badge. It was the last 'Coming soon' teaser, so that list is gone.
 - **Integers and Number Lines** (grades 5-7): a -10..10 number line (red negative side, blue positive side) with two points to compare (absolute value, opposite, order, distance apart) and an add/subtract view that draws the hop and explains why subtracting a negative moves right, 12 challenges, a badge.
+- **Probability** (grades 4-7): a spinner with 0-6 red, blue and green sectors, theoretical chance as a fraction, percent and word (impossible to certain), spins from a seeded stream with a bar per colour and a line for the expected count, 12 challenges, a badge.
 - **Welcome page organised**: module cards grouped under the three curriculum strands (Number and Operations, Geometry and Measurement, Mathematical Thinking), sorted by starting grade, with an All / 1-2 / 3-4 / 5-7 grade filter. The card design is unchanged. A type-checked map makes adding a module without choosing its strand an error.
 - With ten module tabs the header now scrolls sideways in one row (it had grown to 224 px tall when wrapped) and keeps the active tab in view.
 - XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. Next modules in value order: Probability, Symmetry and Transformations, Algebraic Balance, then Variables and Expressions.
+1. Next modules in value order: Symmetry and Transformations, Algebraic Balance, Measurement, then Variables and Expressions.
 2. Missions and lessons on top of the stored `missions` / `lessons` containers.
 3. Progress export/import (JSON file) so a learner can move devices without a backend.
 4. A real-device performance and screen-reader pass.

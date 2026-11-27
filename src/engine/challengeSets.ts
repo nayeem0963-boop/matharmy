@@ -2,6 +2,7 @@ import { fractionChallenges, geometryChallenges, isFractionSolved, type Geometry
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
 import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
+import { isSpinnerSolved, spinnerChallenges, type SpinnerChallenge, type SpinnerState } from '../data/probability'
 import { intChallenges, isIntSolved, type IntChallenge, type IntState } from '../data/integers'
 import { isPlaneSolved, planeChallenges, type PlaneChallenge, type PlaneView } from '../data/coordinatePlane'
 import { angleChallenges, isAngleSolved, type AngleChallenge, type AngleState } from '../data/angles'
@@ -105,6 +106,12 @@ export const integerSet: ChallengeSet<IntChallenge, IntState> = {
   isSolved: isIntSolved,
 }
 
+export const spinnerSet: ChallengeSet<SpinnerChallenge, SpinnerState> = {
+  module: 'probability',
+  challenges: spinnerChallenges,
+  isSolved: isSpinnerSolved,
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
@@ -120,4 +127,5 @@ export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   angles: angleSet.challenges,
   'coordinate-plane': planeSet.challenges,
   integers: integerSet.challenges,
+  probability: spinnerSet.challenges,
 }
