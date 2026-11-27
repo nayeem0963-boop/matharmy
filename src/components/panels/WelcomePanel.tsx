@@ -1,5 +1,6 @@
-import type { CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { BADGES } from '../../data/badges'
+import { GRADE_FILTERS, groupModules, type GradeFilter } from '../../data/strands'
 import { mathModules, upcomingModules, type MathModule, type MathModuleId } from '../../data/mathModules'
 import './welcome.css'
 
@@ -25,6 +26,9 @@ export function WelcomePanel({
   onResetProgress,
   continueModule,
 }: WelcomePanelProps) {
+  const [filterId, setFilterId] = useState<GradeFilter['id']>('all')
+  const filter = GRADE_FILTERS.find((f) => f.id === filterId) ?? GRADE_FILTERS[0]
+  const groups = groupModules(mathModules, filter)
   const totalStars = Object.values(stars).reduce((a, b) => a + b, 0)
   const earnedCount = BADGES.filter((b) => b.id in earnedBadges).length
   const confirmReset = () => {
@@ -57,36 +61,56 @@ export function WelcomePanel({
       )}
 
       <h2 className="welcome__heading">Choose a mission</h2>
-      <div className="module-cards">
-        {mathModules.map((m) => (
+      <div className="grade-filter" role="group" aria-label="Show missions for">
+        {GRADE_FILTERS.map((f) => (
           <button
-            key={m.id}
+            key={f.id}
             type="button"
-            className="module-card"
-            style={{ '--card-color': m.color } as CSSProperties}
-            onClick={() => onSelect(m.id)}
-            disabled={m.status !== 'available'}
+            className="grade-filter__chip"
+            aria-pressed={f.id === filterId}
+            onClick={() => setFilterId(f.id)}
           >
-            <span className="module-card__dot" aria-hidden="true" />
-            <span className="module-card__body">
-              <span className="module-card__title">{m.title}</span>
-              <span className="module-card__tagline">{m.tagline}</span>
-            </span>
-            <span className="module-card__meta">
-              {m.gradeBand}
-              <span
-                className={`module-card__stars${stars[m.id] > 0 ? ' module-card__stars--earned' : ''}`}
-                aria-label={`${stars[m.id]} of ${totals[m.id]} challenges solved`}
-              >
-                ★ {stars[m.id]}/{totals[m.id]}
-              </span>
-            </span>
-            <span className="module-card__arrow" aria-hidden="true">
-              →
-            </span>
+            {f.label}
           </button>
         ))}
       </div>
+      {groups.map(({ strand, modules }) => (
+        <section key={strand.id} className="strand" aria-labelledby={`strand-${strand.id}`}>
+          <h3 className="welcome__strand" id={`strand-${strand.id}`}>
+            {strand.title}
+          </h3>
+          <div className="module-cards">
+            {modules.map((m) => (
+              <button
+                key={m.id}
+                type="button"
+                className="module-card"
+                style={{ '--card-color': m.color } as CSSProperties}
+                onClick={() => onSelect(m.id)}
+                disabled={m.status !== 'available'}
+              >
+                <span className="module-card__dot" aria-hidden="true" />
+                <span className="module-card__body">
+                  <span className="module-card__title">{m.title}</span>
+                  <span className="module-card__tagline">{m.tagline}</span>
+                </span>
+                <span className="module-card__meta">
+                  {m.gradeBand}
+                  <span
+                    className={`module-card__stars${stars[m.id] > 0 ? ' module-card__stars--earned' : ''}`}
+                    aria-label={`${stars[m.id]} of ${totals[m.id]} challenges solved`}
+                  >
+                    ★ {stars[m.id]}/{totals[m.id]}
+                  </span>
+                </span>
+                <span className="module-card__arrow" aria-hidden="true">
+                  →
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
 
       <h2 className="welcome__heading">
         Badges <span className="welcome__count">{earnedCount}/{BADGES.length}</span>
