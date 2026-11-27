@@ -3,6 +3,8 @@
 Audited commit: `bc72d77` ("ready to merge"), shallow clone, so earlier history was not inspected.
 Method: every source file under `src/` was read; the production build, lint and a headless-browser smoke test were run in a **scratch copy outside the repository** (see section 7). No application code, CSS, assets, config, package files or dependencies were changed.
 
+> **Update after Phase 2 (2A to 2E).** The findings below describe the code as audited at `bc72d77`. Section 15 at the end lists what Phase 2 has since changed. Anything marked as a risk or bug here may be resolved there.
+
 Status legend used throughout: **[Done]** implemented and verified in source, **[Partial]** implemented but incomplete, **[Placeholder]** visual only, **[None]** not implemented, **[?]** needs further investigation.
 
 ---
@@ -413,3 +415,33 @@ The repository working tree was unchanged by these steps (`git status` clean apa
 - Whether `public/icons.svg` is intended for future use.
 - Git history before `bc72d77` (shallow clone), deployment target, and any hosting configuration outside the repo.
 - Supplied screenshots: none were attached to this task, so visual comparison was against live renders at three viewport sizes.
+
+
+---
+
+## 15. Phase 2 outcome (2A to 2E)
+
+All on branch `claude/matharmy-2-phase-2`, draft PR #1, one commit per phase. No new maths modules.
+
+| Audit finding | Status now | Where |
+|---|---|---|
+| No automated tests (risk 1) | **Resolved**: Vitest + jsdom + Testing Library; 231 tests in 15 files covering maths, badges, progress, hooks, all three modules through the real `App`, routing | `vitest.config.ts`, `src/**/*.test.*` |
+| Free Geometry star (risk 2) | **Fixed**, including the same case in Fractions. A challenge counts only after it has been seen unsolved during the visit | `src/hooks/useChallenge.ts` |
+| `lastView` saved, never used (risk 3) | **Fixed differently**: welcome page stays the landing page; a "Continue: <module>" shortcut appears when a module was left open | `WelcomePanel.tsx`, `AcademyShell.tsx` |
+| Fixed per-module progress schema (risk 4) | **Partly addressed**: schema v3 adds `xp`, `missions`, `lessons`; v1/v2 upgrade in place. The module map is still keyed by the `MathModuleId` union; a consistency test guards it | `src/utils/progressStore.ts`, `src/modules/registry.test.ts` |
+| `App.tsx` integration bottleneck (risk 6) | **Resolved**: one hook per module in `src/modules/*`; adding a module is a hook, a registry entry and one line in `useModuleRuntimes.ts` | `src/modules`, `src/shell` |
+| Challenge model not unified (risk 7) | **Partly resolved**: `ChallengeSet` contract and one challenge registry; question kinds declared. Geometry challenges still use `check()` functions | `src/engine/*` |
+| Mobile overflow and 3D below the fold (risk 8) | **Fixed** at 360 and 390 px and landscape phones; 3D view first and sticky on phones. Real-device frame rate still not measured | `src/styles-foundation.css` |
+| Accessibility gaps (risk 9) | **Partly resolved**: focus ring everywhere, reduced-motion handling (CSS and 3D decorative motion), larger touch targets. Canvas text alternative and a full screen-reader pass remain | `src/styles-foundation.css`, `src/utils/reducedMotion.ts` |
+| No router / no deep links | **Resolved**: hash routes `#/`, `#/fractions`, `#/geometry`, `#/number-sense`; Back button works | `src/shell/route.ts` |
+| Single global stylesheet (risk 11) | **Open**: Phase 2E added a second file for foundation rules; styles are not yet split per module | |
+| Captain only on the welcome page, no reaction to progress | **Open** (Phase 2D prepared XP and levels but nothing displays them) | |
+| Dependencies churn, `THREE.Clock` warning (risks 10, 12) | **Open** | |
+
+Still not built: missions, lessons, XP/level display, student profiles, export/import of progress, the Captain companion, any new maths module.
+
+### Suggested next steps
+1. Phase 3, first new module: **Addition and Subtraction** (grades 1-3), reusing the regroup engine and `numberToWords`, written against `ChallengeSet`.
+2. Show XP and level in the Academy shell (data already stored).
+3. Captain companion (small, reacts to correct answers and badges).
+4. Split styles per module; add a canvas text alternative.
