@@ -1,0 +1,95 @@
+/* Place-value blocks UI: number readout and regroup buttons, shared by Number Sense and Add & Subtract (moved out of App.css) */
+/* Number Sense */
+.number-readout {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-h);
+  font-variant-numeric: tabular-nums;
+}
+.place-chips {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.formula-overlay__note {
+  font-size: 12px;
+  color: #fbbf24;
+}
+.scene-label--compact {
+  padding: 4px 8px;
+}
+.text-button {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.text-button:hover {
+  color: var(--text-h);
+}
+
+/* Regroup (trade) buttons */
+.regroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.regroup__legend {
+  padding: 0 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.regroup__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.regroup__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.regroup__btn--bundle:not(:disabled):hover {
+  border-color: #22d3ee;
+}
+.regroup__btn--break:not(:disabled):hover {
+  border-color: #facc15;
+}
+.regroup__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.regroup__icon {
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+/* Compact readout when the 3D stage is narrow (pairs with the compact overlay in App.css) */
+@container (max-width: 620px) {
+  .number-readout {
+    font-size: 24px;
+  }
+  .place-chips {
+    gap: 6px;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+}

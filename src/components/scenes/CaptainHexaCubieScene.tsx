@@ -6,6 +6,7 @@ import { SceneHtml } from '../canvas/SceneHtml'
 import { useReducedMotion } from '../../utils/reducedMotion'
 import { ParticleBurst } from '../canvas/ParticleBurst'
 import { playHello, playPop } from '../../utils/soundEffects'
+import './captain.css'
 
 /* ------------------------------------------------------------------ */
 /* Palette (from the concept art)                                      */

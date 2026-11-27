@@ -9,6 +9,8 @@ interface MathCanvasProps {
   resetKey?: unknown
   cameraPosition?: [number, number, number]
   maxDistance?: number
+  /** Text description of the scene for screen readers (the canvas itself cannot be read). */
+  label?: string
 }
 
 /**
@@ -21,10 +23,11 @@ export function MathCanvas({
   resetKey,
   cameraPosition = [0, 4, 9],
   maxDistance = 20,
+  label,
 }: MathCanvasProps) {
   const htmlPortal = useRef<HTMLDivElement>(null)
   return (
-    <div className="math-canvas" ref={htmlPortal}>
+    <div className="math-canvas" ref={htmlPortal} role="group" aria-label={label}>
       <HtmlPortalContext.Provider value={htmlPortal}>
       <SceneErrorBoundary resetKey={resetKey}>
         <Canvas

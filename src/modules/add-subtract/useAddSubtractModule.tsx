@@ -16,6 +16,7 @@ import { REGROUP_SPECS, REGROUP_TOTAL_SECONDS, type RegroupEvent, type RegroupKi
 import { addSubtractSet } from '../../engine/challengeSets'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { playBreak, playBundle, playChime, playClick } from '../../utils/soundEffects'
+import { sumLabel } from '../../data/sceneLabels'
 import { MathCanvas, PlaceValueScene } from '../shared'
 import type { ModuleRuntime, ProgressApi } from '../types'
 
@@ -102,7 +103,13 @@ export function useAddSubtractModule(progress: ProgressApi): ModuleRuntime {
     ),
     stage: (
       <>
-        <MathCanvas key="add-subtract" resetKey="add-subtract" cameraPosition={[0, 6.5, 8.5]} maxDistance={32}>
+        <MathCanvas
+          key="add-subtract"
+          resetKey="add-subtract"
+          cameraPosition={[0, 6.5, 8.5]}
+          maxDistance={32}
+          label={sumLabel(op, a, b, mat.counts)}
+        >
           <PlaceValueScene counts={mat.counts} burstKey={burst} regroup={regroup} />
         </MathCanvas>
         <AddSubtractOverlay op={op} a={a} b={b} counts={mat.counts} working={quizOn ? undefined : columnWorking(op, a, b)} />

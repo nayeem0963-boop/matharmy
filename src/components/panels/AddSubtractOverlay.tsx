@@ -1,5 +1,7 @@
 import { OPERATION_SYMBOL, type Operation, type WorkingStep } from '../../data/addSubtract'
 import { numberToWords, placeValueTotal, type PlaceValueCounts } from '../../data/placeValue'
+import './place-value.css'
+import './add-subtract.css'
 
 interface AddSubtractOverlayProps {
   op: Operation

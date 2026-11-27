@@ -6,6 +6,7 @@ import { CaptainCompanion } from '../components/ui/CaptainCompanion'
 import { XpMeter } from '../components/ui/XpMeter'
 import { useCaptainReactions } from '../hooks/useCaptainReactions'
 import { getModule, mathModules } from '../data/mathModules'
+import { WELCOME_LABEL } from '../data/sceneLabels'
 import type { ModuleRuntimes, ProgressApi } from '../modules/types'
 import { MathCanvas } from '../modules/shared'
 import type { View } from './route'
@@ -49,7 +50,7 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
   const totals = Object.fromEntries(mathModules.map((m) => [m.id, runtimes[m.id].total])) as typeof stars
 
   const stage = !active ? (
-    <MathCanvas key="welcome" resetKey="welcome" cameraPosition={[0, 2.5, 5.7]}>
+    <MathCanvas key="welcome" resetKey="welcome" cameraPosition={[0, 2.5, 5.7]} label={WELCOME_LABEL}>
       <CaptainHexaCubieScene />
     </MathCanvas>
   ) : active.status === 'coming-soon' ? (

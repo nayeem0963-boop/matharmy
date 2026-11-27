@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import { BADGES } from '../../data/badges'
 import { mathModules, upcomingModules, type MathModule, type MathModuleId } from '../../data/mathModules'
+import './welcome.css'
 
 interface WelcomePanelProps {
   onSelect: (id: MathModuleId) => void

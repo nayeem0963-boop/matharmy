@@ -1,0 +1,18 @@
+/* Add & Subtract column method (moved out of App.css) */
+/* Add & Subtract: worked column method in the readout */
+.working-steps {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text);
+}
+.working-steps__place {
+  color: var(--muted);
+  text-transform: capitalize;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  margin-right: 4px;
+}

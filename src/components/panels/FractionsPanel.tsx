@@ -2,6 +2,7 @@ import type { FractionChallenge } from '../../data/challenges'
 import { ChallengeCard, type QuizStatus } from '../ui/ChallengeCard'
 import { Stepper } from '../ui/Stepper'
 import { Toggle } from '../ui/Toggle'
+import './fractions.css'
 
 export const MAX_DENOMINATOR = 12
 

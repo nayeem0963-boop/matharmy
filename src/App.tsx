@@ -4,7 +4,6 @@ import { useProgress } from './hooks/useProgress'
 import { AcademyShell } from './shell/AcademyShell'
 import { useHashView } from './shell/route'
 import { playClick, setSoundEnabled } from './utils/soundEffects'
-import './App.css'
 import './styles-foundation.css'
 
 /** App root: saved progress, hash navigation, per-module runtimes, then the Academy shell. */

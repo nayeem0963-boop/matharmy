@@ -1,11 +1,15 @@
 /** Phase 2C: hash navigation and the Academy shell, through the real App (scenes mocked). */
-import { act, cleanup, render, screen } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { PROGRESS_STORAGE_KEY, defaultProgress, type ProgressState } from './utils/progressStore'
 
 vi.mock('./components/canvas/MathCanvas', () => ({
-  default: ({ children }: { children?: unknown }) => <div data-testid="canvas">{children as never}</div>,
+  default: ({ children, label }: { children?: unknown; label?: string }) => (
+    <div data-testid="canvas" role="group" aria-label={label}>
+      {children as never}
+    </div>
+  ),
 }))
 vi.mock('./components/scenes/FractionBlocksScene', () => ({ default: () => null }))
 vi.mock('./components/scenes/GeometryExplorerScene', () => ({ default: () => null }))
@@ -114,6 +118,17 @@ describe('Academy shell', () => {
     expect(root().style.getPropertyValue('--module-color')).toBe('#22c55e')
     await openTab('Fractions')
     expect(root().style.getPropertyValue('--module-color')).toBe('#f59e0b')
+  })
+
+  it('describes the 3D scene in words, and the description follows the state', async () => {
+    render(<App />)
+    expect((await screen.findByRole('group', { name: /Captain Hexa-Cubie, your guide/ })).textContent).toBeDefined()
+    await openTab('Fractions')
+    expect(await screen.findByRole('group', { name: /showing 3\/4/ })).toBeTruthy()
+    fireEvent.change(screen.getByLabelText('Numerator'), { target: { value: '5' } })
+    expect(await screen.findByRole('group', { name: /showing 5\/4, drawn as 2 bars/ })).toBeTruthy()
+    await openTab('Number Sense')
+    expect(await screen.findByRole('group', { name: /1 hundred flat, 2 ten rods and 3 one cubes/ })).toBeTruthy()
   })
 
   it('labels the stage for the current view', async () => {

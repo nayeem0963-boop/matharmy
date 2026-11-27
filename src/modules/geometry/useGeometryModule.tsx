@@ -6,6 +6,7 @@ import { getModule } from '../../data/mathModules'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { useShapeDimensions } from '../../hooks/useShapeDimensions'
 import { playChime } from '../../utils/soundEffects'
+import { geometryLabel } from '../../data/sceneLabels'
 import { MathCanvas, GeometryExplorerScene } from '../shared'
 import type { ModuleRuntime, ProgressApi } from '../types'
 
@@ -39,7 +40,13 @@ export function useGeometryModule(progress: ProgressApi): ModuleRuntime {
     ),
     stage: (
       <>
-        <MathCanvas key="geometry" resetKey="geometry" cameraPosition={[4.5, 5, 7.5]} maxDistance={24}>
+        <MathCanvas
+          key="geometry"
+          resetKey="geometry"
+          cameraPosition={[4.5, 5, 7.5]}
+          maxDistance={24}
+          label={geometryLabel(geometry.shape, geometry.metrics, geometry.showNet)}
+        >
           <GeometryExplorerScene
             shapeId={geometry.shapeId}
             dimensions={geometry.dimensions}

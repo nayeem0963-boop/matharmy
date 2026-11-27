@@ -4,6 +4,7 @@ import { fractionSet } from '../../engine/challengeSets'
 import { getModule } from '../../data/mathModules'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { playChime } from '../../utils/soundEffects'
+import { fractionLabel } from '../../data/sceneLabels'
 import { MathCanvas, FractionBlocksScene } from '../shared'
 import type { ModuleRuntime, ProgressApi } from '../types'
 
@@ -52,7 +53,7 @@ export function useFractionsModule(progress: ProgressApi): ModuleRuntime {
       />
     ),
     stage: (
-      <MathCanvas key="fractions" resetKey="fractions">
+      <MathCanvas key="fractions" resetKey="fractions" label={fractionLabel(numerator, denominator)}>
         <FractionBlocksScene
           numerator={numerator}
           denominator={denominator}

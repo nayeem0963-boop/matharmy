@@ -13,6 +13,7 @@ import { playClick } from '../../utils/soundEffects'
 import { ChallengeCard, type QuizStatus } from '../ui/ChallengeCard'
 import { Stepper } from '../ui/Stepper'
 import { Toggle } from '../ui/Toggle'
+import './place-value.css'
 
 interface AddSubtractPanelProps {
   op: Operation

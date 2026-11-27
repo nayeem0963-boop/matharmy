@@ -1,0 +1,197 @@
+/* Welcome page: intro, module cards, badges, Continue shortcut (moved out of App.css) */
+/* Welcome view */
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.welcome .panel__text {
+  margin-bottom: 6px;
+}
+.welcome__title {
+  font-size: 36px;
+  letter-spacing: -0.5px;
+}
+.welcome__accent {
+  background: linear-gradient(90deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.welcome__heading {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.module-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.module-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, background 0.15s;
+}
+.module-card:hover:not(:disabled) {
+  border-color: var(--card-color);
+  background: color-mix(in srgb, var(--card-color) 10%, var(--surface-2));
+  transform: translateX(2px);
+}
+.module-card:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.module-card__dot {
+  grid-row: span 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--card-color);
+  box-shadow: 0 0 12px var(--card-color);
+}
+.module-card__body {
+  display: flex;
+  flex-direction: column;
+  grid-row: span 2;
+}
+.module-card__title {
+  font-weight: 600;
+  color: var(--text-h);
+}
+.module-card__tagline,
+.upcoming__tagline {
+  font-size: 13px;
+  color: var(--muted);
+}
+.module-card__meta {
+  font-size: 12px;
+  color: var(--muted);
+  justify-self: end;
+}
+.module-card__arrow {
+  justify-self: end;
+  color: var(--card-color);
+  font-weight: 700;
+}
+.upcoming {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.upcoming__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  opacity: 0.75;
+}
+.upcoming__item strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+}
+
+/* Badges grid (welcome) */
+.welcome__count {
+  margin-left: 6px;
+  color: #fde047;
+  font-variant-numeric: tabular-nums;
+}
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.badge-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0.55;
+}
+.badge-tile--earned {
+  border: 1px solid rgba(253, 224, 71, 0.55);
+  background: rgba(253, 224, 71, 0.08);
+  opacity: 1;
+}
+.badge-tile__icon {
+  font-size: 22px;
+  line-height: 1;
+  filter: grayscale(1);
+}
+.badge-tile--earned .badge-tile__icon {
+  filter: none;
+}
+.badge-tile__title {
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--text);
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Welcome: shortcut back to the last module (only shown when there is one) */
+.welcome__continue {
+  display: block;
+  width: 100%;
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--card-color, var(--border));
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-h);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.welcome__continue:hover {
+  background: var(--surface-2);
+}
+
+/* Saved progress: stars on the module cards (after the base card rules) */
+.module-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.module-card__stars {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.module-card__stars--earned {
+  color: #fde047;
+}

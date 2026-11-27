@@ -14,6 +14,7 @@ import {
 import { numberSenseSet } from '../../engine/challengeSets'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { playBreak, playBundle, playChime } from '../../utils/soundEffects'
+import { blocksLabel } from '../../data/sceneLabels'
 import { MathCanvas, PlaceValueScene } from '../shared'
 import type { ModuleRuntime, ProgressApi } from '../types'
 
@@ -66,7 +67,13 @@ export function useNumberSenseModule(progress: ProgressApi): ModuleRuntime {
     ),
     stage: (
       <>
-        <MathCanvas key="number-sense" resetKey="number-sense" cameraPosition={[0, 6.5, 8.5]} maxDistance={32}>
+        <MathCanvas
+          key="number-sense"
+          resetKey="number-sense"
+          cameraPosition={[0, 6.5, 8.5]}
+          maxDistance={32}
+          label={blocksLabel(counts)}
+        >
           <PlaceValueScene counts={counts} burstKey={burst} regroup={regroup} />
         </MathCanvas>
         <NumberSenseOverlay counts={counts} />

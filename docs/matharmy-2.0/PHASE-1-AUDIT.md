@@ -432,16 +432,20 @@ All on branch `claude/matharmy-2-phase-2`, draft PR #1, one commit per phase. No
 | `App.tsx` integration bottleneck (risk 6) | **Resolved**: one hook per module in `src/modules/*`; adding a module is a hook, a registry entry and one line in `useModuleRuntimes.ts` | `src/modules`, `src/shell` |
 | Challenge model not unified (risk 7) | **Partly resolved**: `ChallengeSet` contract and one challenge registry; question kinds declared. Geometry challenges still use `check()` functions | `src/engine/*` |
 | Mobile overflow and 3D below the fold (risk 8) | **Fixed** at 360 and 390 px and landscape phones; 3D view first and sticky on phones. Real-device frame rate still not measured | `src/styles-foundation.css` |
-| Accessibility gaps (risk 9) | **Partly resolved**: focus ring everywhere, reduced-motion handling (CSS and 3D decorative motion), larger touch targets. Canvas text alternative and a full screen-reader pass remain | `src/styles-foundation.css`, `src/utils/reducedMotion.ts` |
+| Accessibility gaps (risk 9) | **Mostly resolved**: focus ring everywhere, reduced-motion handling (CSS and 3D decorative motion), larger touch targets, and a live text description of every 3D scene. A full screen-reader pass with real assistive technology remains | `src/styles-foundation.css`, `src/utils/reducedMotion.ts` |
 | No router / no deep links | **Resolved**: hash routes `#/`, `#/fractions`, `#/geometry`, `#/number-sense`; Back button works | `src/shell/route.ts` |
-| Single global stylesheet (risk 11) | **Open**: Phase 2E added a second file for foundation rules; styles are not yet split per module | |
-| Captain only on the welcome page, no reaction to progress | **Open** (Phase 2D prepared XP and levels but nothing displays them) | |
+| Single global stylesheet (risk 11) | **Mostly resolved**: welcome, place-value, fractions, add-subtract and Captain styles moved next to their components (App.css 955 to about 620 lines). Verified with before/after screenshots. Shared rules (header, stage, challenge card, formula overlay) remain in `App.css` | `src/components/**/*.css` |
+| Captain only on the welcome page, no reaction to progress | **Resolved**: a small 2D Captain in every module reacts to solves, badges and level-ups and gives tips when tapped; XP and level shown in the header once earned | `CaptainCompanion.tsx`, `useCaptainReactions.ts`, `XpMeter.tsx` |
 | Dependencies churn, `THREE.Clock` warning (risks 10, 12) | **Open** | |
 
-Still not built: missions, lessons, XP/level display, student profiles, export/import of progress, the Captain companion, any new maths module.
+Still not built: missions, lessons, student profiles, export/import of progress.
+
+### Done since (Phase 3, first pass)
+- **Add & Subtract** (grades 1-3), the first new module: base-ten blocks, carry/borrow with the existing regroup trades, worked column method, 12 challenges, a badge. Built on the registry, `ChallengeSet` and module hook, as proposed.
+- XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. Phase 3, first new module: **Addition and Subtraction** (grades 1-3), reusing the regroup engine and `numberToWords`, written against `ChallengeSet`.
-2. Show XP and level in the Academy shell (data already stored).
-3. Captain companion (small, reacts to correct answers and badges).
-4. Split styles per module; add a canvas text alternative.
+1. **Multiplication Arrays** (grades 2-5; already teased on the welcome page), then Patterns and Sequences.
+2. Missions and lessons on top of the stored `missions` / `lessons` containers.
+3. Progress export/import (JSON file) so a learner can move devices without a backend.
+4. A real-device performance and screen-reader pass.
