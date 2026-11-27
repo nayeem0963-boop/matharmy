@@ -8,3 +8,4 @@ export const FractionBlocksScene = lazy(() => import('../components/scenes/Fract
 export const GeometryExplorerScene = lazy(() => import('../components/scenes/GeometryExplorerScene'))
 export const PlaceValueScene = lazy(() => import('../components/scenes/PlaceValueScene'))
 export const ArrayScene = lazy(() => import('../components/scenes/ArrayScene'))
+export const DivisionScene = lazy(() => import('../components/scenes/DivisionScene'))

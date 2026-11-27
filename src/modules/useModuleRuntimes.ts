@@ -1,4 +1,5 @@
 import { useAddSubtractModule } from './add-subtract/useAddSubtractModule'
+import { useDivisionModule } from './division/useDivisionModule'
 import { useFractionsModule } from './fractions/useFractionsModule'
 import { useGeometryModule } from './geometry/useGeometryModule'
 import { useMultiplicationModule } from './multiplication/useMultiplicationModule'
@@ -16,5 +17,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const numberSense = useNumberSenseModule(progress)
   const addSubtract = useAddSubtractModule(progress)
   const multiplication = useMultiplicationModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication }
+  const division = useDivisionModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division }
 }
