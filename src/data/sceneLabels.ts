@@ -1,3 +1,4 @@
+import { COLOURS, percentText as chancePercent, probabilityFraction, totalSectors, type SpinnerState, type Tally } from './probability'
 import { compareText, distanceBetween, expressionText, moveWords, signed, type IntState } from './integers'
 import { TRIANGLE_NAMES, locationText, pairText, type PlaneMode, type Vec } from './coordinatePlane'
 import { KIND_NAMES, classify, turnFraction } from './angles'
@@ -80,4 +81,12 @@ export function integerLabel(s: IntState): string {
   const line = 'A number line from -10 to 10, red on the negative side and blue on the positive side.'
   if (s.mode === 'move') return `${line} ${expressionText(s)}. ${moveWords(s)}`
   return `${line} Point A at ${signed(s.p)} and point B at ${signed(s.q)}: ${compareText(s.p, s.q)}, ${distanceBetween(s.p, s.q)} apart.`
+}
+
+export function spinnerLabel(s: SpinnerState, tally: Tally): string {
+  const total = totalSectors(s)
+  if (total === 0) return 'A spinner with no sectors yet. Add red, blue or green sectors.'
+  const chances = COLOURS.map((c) => `${c} ${s[c]} of ${total} sectors, ${probabilityFraction(c, s)}`).join('; ')
+  const results = s.spins === 0 ? 'No spins yet.' : `After ${s.spins} spins: ${COLOURS.map((c) => `${c} ${tally[c]} (${chancePercent(tally[c] / s.spins)})`).join(', ')}.`
+  return `A spinner and a bar for each colour. ${chances}. ${results}`
 }

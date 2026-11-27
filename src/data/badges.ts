@@ -145,6 +145,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'integers'),
   },
   {
+    id: 'chance-champion',
+    icon: '🎲',
+    title: 'Chance Champion',
+    description: 'Solve all Probability challenges.',
+    earned: (c) => allIn(c, 'probability'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

@@ -29,6 +29,7 @@ export const MODULE_STRAND: Record<MathModuleId, StrandId> = {
   'coordinate-plane': 'geometry',
   patterns: 'thinking',
   'data-graphs': 'thinking',
+  probability: 'thinking',
 }
 
 /** First and last grade of a module, read from its "Grades 3–5" label. */

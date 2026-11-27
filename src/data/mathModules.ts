@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane' | 'integers'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane' | 'integers' | 'probability'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -172,6 +172,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#06b6d4',
     skills: ['Negative numbers', 'Comparing and opposites', 'Adding and subtracting integers'],
+  },
+  {
+    id: 'probability',
+    title: 'Probability',
+    tabLabel: 'Probability',
+    tagline: 'Spin, count and compare',
+    description:
+      'Build a spinner, work out the chance of each colour, then spin it again and again. See the results settle toward the chances as the spins grow.',
+    gradeBand: 'Grades 4–7',
+    status: 'available',
+    color: '#eab308',
+    skills: ['Chance and likelihood', 'Fractions as probability', 'Experiments and trials'],
   },
 ]
 

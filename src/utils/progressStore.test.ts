@@ -25,7 +25,7 @@ describe('defaultProgress', () => {
     expect(p.soundOn).toBe(true)
     expect(p.lastView).toBe('welcome')
     for (const m of Object.values(p.modules)) expect(m).toEqual({ solved: [], tier: 'easy', streak: 0, bestStreak: 0 })
-    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract', 'multiplication', 'division', 'patterns', 'area-perimeter', 'decimals', 'data-graphs', 'angles', 'coordinate-plane', 'integers'])
+    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract', 'multiplication', 'division', 'patterns', 'area-perimeter', 'decimals', 'data-graphs', 'angles', 'coordinate-plane', 'integers', 'probability'])
   })
   it('returns a fresh object every call', () => {
     expect(defaultProgress()).not.toBe(defaultProgress())
@@ -79,7 +79,7 @@ describe('migrateProgress', () => {
       lastView: 'number-sense',
       updatedAt: 222,
     }
-    // modules added later (Add & Subtract, Multiplication Arrays, Division, Patterns, Area, Decimals, Graphs, Angles, Coordinates, Integers) start empty
+    // modules added later (Add & Subtract, Multiplication Arrays, Division, Patterns, Area, Decimals, Graphs, Angles, Coordinates, Integers, Probability) start empty
     expect(migrateProgress(v2)).toEqual({
       ...v2,
       version: 3,
@@ -98,6 +98,7 @@ describe('migrateProgress', () => {
         angles: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
         'coordinate-plane': { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
         integers: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
+        probability: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
       },
     })
   })

@@ -10,6 +10,7 @@ import { useGeometryModule } from './geometry/useGeometryModule'
 import { useMultiplicationModule } from './multiplication/useMultiplicationModule'
 import { usePatternsModule } from './patterns/usePatternsModule'
 import { useIntegersModule } from './integers/useIntegersModule'
+import { useProbabilityModule } from './probability/useProbabilityModule'
 import { useNumberSenseModule } from './number-sense/useNumberSenseModule'
 import type { ModuleRuntimes, ProgressApi } from './types'
 
@@ -32,5 +33,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const angles = useAnglesModule(progress)
   const coordinatePlane = useCoordinatePlaneModule(progress)
   const integers = useIntegersModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals, 'data-graphs': dataGraphs, angles, 'coordinate-plane': coordinatePlane, integers }
+  const probability = useProbabilityModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals, 'data-graphs': dataGraphs, angles, 'coordinate-plane': coordinatePlane, integers, probability }
 }
