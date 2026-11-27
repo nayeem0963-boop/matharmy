@@ -448,11 +448,12 @@ Still not built: missions, lessons, student profiles, export/import of progress.
 - **Area and Perimeter** (grades 3-6): rectangles and L-shapes on a grid, area as tiles and perimeter as boundary edges, composite shapes (cutting a corner changes area but not perimeter), largest-area and smallest-perimeter challenges, 12 challenges, a badge.
 - **Decimals and Percentages** (grades 4-7): a 100-square grid shaded by tenths (columns) and hundredths (squares), read as a decimal, a fraction in lowest terms and a percent at once, 12 challenges including comparisons across forms, a badge.
 - **Data and Graphs** (grades 2-7): a five-bar graph with three topics, the counts read as a data set (total, mean, median, mode, range, tallest), an optional mean line, 12 challenges including two-fact ones, a badge.
+- **Angles** (grades 3-7): a 3D protractor you can click to turn the ray, angles named (acute, right, obtuse, straight, reflex, full turn), complement / supplement / full-turn partners, share of a turn, 12 challenges, a badge. Replaces the 'Coming soon' teaser.
 - With ten module tabs the header now scrolls sideways in one row (it had grown to 224 px tall when wrapped) and keeps the active tab in view.
 - XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. Next modules in value order: Angles, the Coordinate Plane, Integers and Number Lines, then Probability.
+1. Next modules in value order: the Coordinate Plane, Integers and Number Lines, Probability, then Symmetry and Transformations.
 2. Missions and lessons on top of the stored `missions` / `lessons` containers.
 3. Progress export/import (JSON file) so a learner can move devices without a backend.
 4. A real-device performance and screen-reader pass.

@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -137,6 +137,18 @@ export const mathModules: MathModule[] = [
     color: '#38bdf8',
     skills: ['Bar graphs', 'Reading data', 'Mean, median and mode', 'Range'],
   },
+  {
+    id: 'angles',
+    title: 'Angles',
+    tabLabel: 'Angles',
+    tagline: 'Turn the ray, name the angle',
+    description:
+      'Turn a ray on a 3D protractor. Name acute, right, obtuse, straight and reflex angles, find the angles that add to 90°, 180° and 360°, and see each as a share of a full turn.',
+    gradeBand: 'Grades 3–7',
+    status: 'available',
+    color: '#fb923c',
+    skills: ['Measuring angles', 'Types of angle', 'Complementary and supplementary', 'Turns'],
+  },
 ]
 
 /** Teasers for the welcome page; not selectable yet. */
@@ -148,7 +160,6 @@ export interface UpcomingModule {
 
 export const upcomingModules: UpcomingModule[] = [
   { title: 'Coordinate Plane', tagline: 'Plot, slide, flip and turn', color: '#a78bfa' },
-  { title: 'Angles', tagline: 'Measure with a 3D protractor', color: '#fb923c' },
 ]
 
 export const getModule = (id: MathModuleId): MathModule =>

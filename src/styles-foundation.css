@@ -264,3 +264,9 @@
     flex-wrap: wrap;
   }
 }
+
+/* Soft edges where the scrolling tab row is cut off, so a half tab does not look like a glitch. */
+.module-tabs {
+  padding-inline: 16px;
+  mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+}

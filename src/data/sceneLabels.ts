@@ -1,3 +1,4 @@
+import { KIND_NAMES, classify, turnFraction } from './angles'
 import { formatStat, meanOf, medianOf, rangeOf, totalOf, type Topic } from './dataGraphs'
 import { decimalText, fractionText, percentText, placeWords } from './decimals'
 import { SHAPE_LABELS, areaOf, perimeterOf, type AreaState } from './areaPerimeter'
@@ -61,4 +62,8 @@ export function decimalLabel(squares: number): string {
 export function graphLabel(topic: Topic, values: number[], showMean: boolean): string {
   const bars = topic.categories.map((c, i) => `${c} ${values[i]}`).join(', ')
   return `A bar graph of ${topic.question.toLowerCase()}: ${bars}. Total ${totalOf(values)}, mean ${formatStat(meanOf(values))}, median ${formatStat(medianOf(values))}, range ${rangeOf(values)}.${showMean ? ' An orange line marks the mean.' : ''}`
+}
+
+export function angleLabel(angle: number): string {
+  return `A protractor seen from above. A fixed ray points right and a second ray is turned counterclockwise by ${angle} degrees: a ${KIND_NAMES[classify(angle)]}, ${turnFraction(angle)} of a full turn. Click the protractor to turn the ray.`
 }
