@@ -53,8 +53,9 @@ function StageLoading() {
 }
 
 function App() {
-  const [view, setView] = useState<View>('welcome')
   const progressApi = useProgress()
+  // Reopen the module the learner was last using (saved by openView below).
+  const [view, setView] = useState<View>(() => progressApi.progress.lastView)
   const { progress, setSoundOn, setLastView, resetProgress, badgeQueue, dismissBadge } = progressApi
   const soundOn = progress.soundOn
   const active = view === 'welcome' ? null : getModule(view)

@@ -1,11 +1,9 @@
 /**
  * Regression tests for the two bugs found in the Phase 1 audit, plus
- * characterisation of the current navigation behaviour.
+ * characterisation of the navigation behaviour.
  *
- * The bug tests are written to assert the CORRECT behaviour and are marked
- * `it.fails` because the bugs still exist at the end of Phase 2A. Phase 2B fixes
- * them; at that point `it.fails` becomes `it` (vitest reports a fixed bug as a
- * failure of an `it.fails` test, which is the prompt to flip it).
+ * The bug tests assert the correct behaviour. They were `it.fails` at the end
+ * of Phase 2A (bugs reproduced) and became plain `it` once Phase 2B fixed them.
  *
  * The three.js scenes are replaced with empty components: these tests cover the
  * React shell, state and persistence, not WebGL.
@@ -71,7 +69,7 @@ describe('navigation (current behaviour)', () => {
 describe('regression: Geometry gives a free star when Challenge mode is switched on', () => {
   // Default cube (edge 3, volume 27) already satisfies the first challenge
   // "Build a cube with a volume of 27".
-  it.fails('does not pre-solve the first Geometry challenge', async () => {
+  it('does not pre-solve the first Geometry challenge', async () => {
     render(<App />)
     await openTab('Geometry')
     await challengeMode()
@@ -81,14 +79,14 @@ describe('regression: Geometry gives a free star when Challenge mode is switched
     expect(within(card as HTMLElement).getByText(/Quick Quiz/)).toBeTruthy()
   })
 
-  it.fails('does not unlock First Steps just by opening Challenge mode', async () => {
+  it('does not unlock First Steps just by opening Challenge mode', async () => {
     render(<App />)
     await openTab('Geometry')
     await challengeMode()
     expect(saved().badges).toEqual({})
   })
 
-  it.fails('same problem for Fractions once earlier challenges are saved (default 3/4 solves f-3-4)', async () => {
+  it('same problem for Fractions once earlier challenges are saved (default 3/4 solves f-3-4)', async () => {
     save((p) => {
       p.modules.fractions.solved = ['f-1-2', 'f-1-4']
     })
@@ -101,12 +99,22 @@ describe('regression: Geometry gives a free star when Challenge mode is switched
 })
 
 describe('regression: the last viewed module is saved but not restored', () => {
-  it.fails('reopens the module that was open when the page was last used', async () => {
+  it('reopens the module that was open when the page was last used', async () => {
     save((p) => {
       p.lastView = 'geometry'
     })
     render(<App />)
     expect((await heading()).textContent).toBe('Geometry 3D Explorer')
+  })
+
+  it('opens a saved module directly and keeps recording navigation', async () => {
+    save((p) => {
+      p.lastView = 'number-sense'
+    })
+    render(<App />)
+    expect((await heading()).textContent).toBe('Number Sense')
+    await userEvent.click(screen.getByRole('button', { name: 'MathArmy home' }))
+    expect(saved().lastView).toBe('welcome')
   })
 
   it('still opens the welcome page when nothing was saved', async () => {

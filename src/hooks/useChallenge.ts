@@ -33,7 +33,17 @@ export function useChallenge<C>({
   if (position.key !== resetKey) setPosition({ key: resetKey, index: initialIndex })
   const index = (position.key === resetKey ? position.index : initialIndex) % challenges.length
   const challenge = challenges[index]
-  const solved = enabled && isSolved(challenge)
+  const satisfied = enabled && isSolved(challenge)
+
+  // A challenge only counts once the learner has *seen it unsolved* during this
+  // visit. Without this, switching the quiz on while the model already happens
+  // to match (e.g. the default 3-unit cube vs "cube of volume 27") handed out a
+  // free star. Turning the quiz off disarms it again.
+  const visit = `${resetKey}:${index}`
+  const [armedVisit, setArmedVisit] = useState('')
+  const armed = !enabled ? '' : !satisfied ? visit : armedVisit
+  if (armed !== armedVisit) setArmedVisit(armed) // adjusting state during render (see above)
+  const solved = satisfied && armed === visit
 
   const onSolveRef = useRef(onSolve)
   useEffect(() => {
@@ -42,7 +52,6 @@ export function useChallenge<C>({
 
   // Celebrate once per challenge visit (key + index identifies the visit).
   const celebrated = useRef<string | null>(null)
-  const visit = `${resetKey}:${index}`
   useEffect(() => {
     if (!solved || celebrated.current === visit) return
     celebrated.current = visit

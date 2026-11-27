@@ -47,12 +47,71 @@ describe('useChallenge', () => {
   })
 
   it('reports solved only while enabled', () => {
-    const v = { current: 1 }
+    const v = { current: 0 }
     const { result, rerender, onSolve } = setup(v)
+    v.current = 1
+    rerender({ enabled: true })
     expect(result.current.solved).toBe(true)
     expect(onSolve).toHaveBeenCalledTimes(1)
     rerender({ enabled: false })
     expect(result.current.solved).toBe(false)
+  })
+
+  describe('a challenge that is already satisfied when the quiz starts (free-star bug)', () => {
+    it('is not solved and does not call onSolve', () => {
+      const v = { current: 1 } // already matches challenge "a"
+      const { result, onSolve } = setup(v)
+      expect(result.current.solved).toBe(false)
+      expect(onSolve).not.toHaveBeenCalled()
+    })
+
+    it('counts once the learner moves away and builds it again', () => {
+      const v = { current: 1 }
+      const { result, rerender, onSolve } = setup(v)
+      v.current = 5
+      rerender({ enabled: true })
+      v.current = 1
+      rerender({ enabled: true })
+      expect(result.current.solved).toBe(true)
+      expect(onSolve).toHaveBeenCalledTimes(1)
+    })
+
+    it('is not counted when the quiz is switched off and on again without changing anything', () => {
+      const v = { current: 0 }
+      const { result, rerender, onSolve } = setup(v)
+      v.current = 1
+      rerender({ enabled: true })
+      expect(onSolve).toHaveBeenCalledTimes(1) // genuine solve
+      act(() => result.current.next())
+      v.current = 2 // matches "b"
+      rerender({ enabled: false })
+      rerender({ enabled: true })
+      expect(result.current.challenge.id).toBe('b')
+      expect(result.current.solved).toBe(false)
+      expect(onSolve).toHaveBeenCalledTimes(1)
+    })
+
+    it('applies again after the difficulty list is reset', () => {
+      const v = { current: 0 }
+      const onSolve = vi.fn()
+      const { result, rerender } = renderHook(
+        (p: { key: string }) =>
+          useChallenge<C>({
+            challenges: list,
+            enabled: true,
+            isSolved: (c) => c.target === v.current,
+            onSolve,
+            resetKey: p.key,
+          }),
+        { initialProps: { key: 'easy' } },
+      )
+      v.current = 1
+      rerender({ key: 'easy' })
+      expect(onSolve).toHaveBeenCalledTimes(1)
+      rerender({ key: 'medium' }) // new list, still showing 1, which matches "a"
+      expect(result.current.solved).toBe(false)
+      expect(onSolve).toHaveBeenCalledTimes(1)
+    })
   })
 
   it('calls onSolve once per challenge visit, not on every render', () => {
@@ -68,8 +127,10 @@ describe('useChallenge', () => {
   })
 
   it('next() moves on and the next challenge can be solved too', () => {
-    const v = { current: 1 }
+    const v = { current: 0 }
     const { result, rerender, onSolve } = setup(v)
+    v.current = 1
+    rerender({ enabled: true })
     act(() => result.current.next())
     expect(result.current.challenge.id).toBe('b')
     v.current = 2
