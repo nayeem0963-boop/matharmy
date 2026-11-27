@@ -143,3 +143,29 @@ describe('Add & Subtract: challenges', () => {
     expect(cards.map((c) => c.textContent)).toEqual(expect.arrayContaining([expect.stringContaining('Add & Subtract')]))
   })
 })
+
+describe('Captain companion in a module', () => {
+  it('is absent on the welcome page, present in a module, and reacts to a solve', async () => {
+    window.location.hash = ''
+    const { unmount } = render(<App />)
+    await screen.findByRole('heading', { level: 1 })
+    expect(screen.queryByRole('button', { name: /Captain Hexa-Cubie/ })).toBeNull()
+    unmount()
+
+    await open()
+    expect(screen.getByRole('button', { name: /Captain Hexa-Cubie/ })).toBeTruthy()
+    expect(document.querySelector('.captain__bubble')).toBeNull()
+    await userEvent.click(screen.getByRole('switch', { name: 'Challenge mode' }))
+    await click('Add 4 ones')
+    await click('Add 1 tens')
+    // The first solve also unlocks the First Steps badge, and a badge outranks a plain solve.
+    const bubble = await screen.findByText('A new badge! Wear it with pride.')
+    expect(bubble.className).toContain('captain__bubble--badge')
+  })
+
+  it('gives a tip when tapped', async () => {
+    await open()
+    await click(/tap for a tip/)
+    expect(document.querySelector('.captain__bubble--tip')?.textContent).toMatch(/subtracting|trade/i)
+  })
+})

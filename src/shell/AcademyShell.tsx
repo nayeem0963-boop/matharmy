@@ -2,7 +2,9 @@ import { lazy, Suspense, type CSSProperties } from 'react'
 import { SceneErrorBoundary } from '../components/canvas/SceneErrorBoundary'
 import { WelcomePanel } from '../components/panels/WelcomePanel'
 import { BadgeToast } from '../components/ui/BadgeToast'
+import { CaptainCompanion } from '../components/ui/CaptainCompanion'
 import { XpMeter } from '../components/ui/XpMeter'
+import { useCaptainReactions } from '../hooks/useCaptainReactions'
 import { getModule, mathModules } from '../data/mathModules'
 import type { ModuleRuntimes, ProgressApi } from '../modules/types'
 import { MathCanvas } from '../modules/shared'
@@ -37,6 +39,7 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
   const { progress: saved, resetProgress, badgeQueue, dismissBadge } = progress
   const active = view === 'welcome' ? null : getModule(view)
   const runtime = active ? runtimes[active.id] : null
+  const captain = useCaptainReactions(saved)
   const lastModule = saved.lastView === 'welcome' ? null : getModule(saved.lastView)
 
   const stars = Object.fromEntries(mathModules.map((m) => [m.id, runtimes[m.id].stars])) as Record<
@@ -137,6 +140,7 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
           <SceneErrorBoundary resetKey={view}>
             <Suspense fallback={<StageLoading />}>{stage}</Suspense>
           </SceneErrorBoundary>
+          {active && <CaptainCompanion message={captain.message} onTap={() => captain.tip(active.id)} onHide={captain.hide} />}
         </section>
       </main>
 
