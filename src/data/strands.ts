@@ -22,6 +22,7 @@ export const MODULE_STRAND: Record<MathModuleId, StrandId> = {
   division: 'number',
   fractions: 'number',
   decimals: 'number',
+  integers: 'number',
   geometry: 'geometry',
   'area-perimeter': 'geometry',
   angles: 'geometry',

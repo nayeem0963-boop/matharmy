@@ -15,3 +15,4 @@ export const DecimalScene = lazy(() => import('../components/scenes/DecimalScene
 export const DataScene = lazy(() => import('../components/scenes/DataScene'))
 export const AngleScene = lazy(() => import('../components/scenes/AngleScene'))
 export const PlaneScene = lazy(() => import('../components/scenes/PlaneScene'))
+export const NumberLineScene = lazy(() => import('../components/scenes/NumberLineScene'))
