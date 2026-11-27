@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -124,6 +124,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#e879f9',
     skills: ['Tenths and hundredths', 'Decimals', 'Percentages', 'Fractions as decimals'],
+  },
+  {
+    id: 'data-graphs',
+    title: 'Data and Graphs',
+    tabLabel: 'Graphs',
+    tagline: 'Build a graph, read the data',
+    description:
+      'Build a bar graph from a survey and read it as data: total, range, mean, median and mode. Change a bar and watch every number respond.',
+    gradeBand: 'Grades 2–7',
+    status: 'available',
+    color: '#38bdf8',
+    skills: ['Bar graphs', 'Reading data', 'Mean, median and mode', 'Range'],
   },
 ]
 

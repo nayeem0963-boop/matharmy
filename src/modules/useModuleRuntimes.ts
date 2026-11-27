@@ -1,5 +1,6 @@
 import { useAddSubtractModule } from './add-subtract/useAddSubtractModule'
 import { useAreaPerimeterModule } from './area-perimeter/useAreaPerimeterModule'
+import { useDataGraphsModule } from './data-graphs/useDataGraphsModule'
 import { useDecimalsModule } from './decimals/useDecimalsModule'
 import { useDivisionModule } from './division/useDivisionModule'
 import { useFractionsModule } from './fractions/useFractionsModule'
@@ -24,5 +25,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const patterns = usePatternsModule(progress)
   const areaPerimeter = useAreaPerimeterModule(progress)
   const decimals = useDecimalsModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals }
+  const dataGraphs = useDataGraphsModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals, 'data-graphs': dataGraphs }
 }

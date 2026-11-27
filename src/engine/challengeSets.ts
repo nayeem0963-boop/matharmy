@@ -2,6 +2,7 @@ import { fractionChallenges, geometryChallenges, isFractionSolved, type Geometry
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
 import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
+import { graphChallenges, isGraphSolved, type GraphChallenge, type GraphState } from '../data/dataGraphs'
 import { decimalChallenges, isDecimalSolved, type DecimalChallenge, type DecimalState } from '../data/decimals'
 import { areaChallenges, isAreaSolved, type AreaChallenge, type AreaState } from '../data/areaPerimeter'
 import { isPatternSolved, patternChallenges, type PatternChallenge, type PatternState } from '../data/patterns'
@@ -77,6 +78,12 @@ export const decimalSet: ChallengeSet<DecimalChallenge, DecimalState> = {
   isSolved: isDecimalSolved,
 }
 
+export const graphSet: ChallengeSet<GraphChallenge, GraphState> = {
+  module: 'data-graphs',
+  challenges: graphChallenges,
+  isSolved: isGraphSolved,
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
@@ -88,4 +95,5 @@ export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   patterns: patternSet.challenges,
   'area-perimeter': areaSet.challenges,
   decimals: decimalSet.challenges,
+  'data-graphs': graphSet.challenges,
 }

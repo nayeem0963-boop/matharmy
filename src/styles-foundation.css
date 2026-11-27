@@ -237,3 +237,30 @@
     top: 8px;
   }
 }
+
+/* ----- Many modules: the tabs are one scrolling row, never a tall wrapped header ---- */
+.app-header {
+  flex-wrap: nowrap;
+}
+.module-tabs {
+  flex: 0 1 auto;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
+}
+.module-tab {
+  flex: none;
+  white-space: nowrap;
+}
+.brand,
+.header-tools {
+  flex: none;
+}
+@media (max-width: 800px) {
+  /* Phones: brand and tools on the first row, tabs on their own full-width row. */
+  .app-header {
+    flex-wrap: wrap;
+  }
+}

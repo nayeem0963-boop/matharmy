@@ -117,6 +117,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'decimals'),
   },
   {
+    id: 'graph-guru',
+    icon: '📊',
+    title: 'Graph Guru',
+    description: 'Solve all Data and Graphs challenges.',
+    earned: (c) => allIn(c, 'data-graphs'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

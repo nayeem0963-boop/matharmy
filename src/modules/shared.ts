@@ -12,3 +12,4 @@ export const DivisionScene = lazy(() => import('../components/scenes/DivisionSce
 export const PatternScene = lazy(() => import('../components/scenes/PatternScene'))
 export const AreaScene = lazy(() => import('../components/scenes/AreaScene'))
 export const DecimalScene = lazy(() => import('../components/scenes/DecimalScene'))
+export const DataScene = lazy(() => import('../components/scenes/DataScene'))
