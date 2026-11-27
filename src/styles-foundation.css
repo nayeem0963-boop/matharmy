@@ -83,7 +83,7 @@
   .module-tab {
     flex: none;
   }
-  .sound-toggle {
+  .header-tools {
     margin-left: auto;
   }
 
@@ -137,5 +137,49 @@
   /* Short phones in portrait-ish windows: less of the screen for the 3D view */
   .app-main {
     grid-template-rows: clamp(180px, 50svh, 320px) auto;
+  }
+}
+
+/* ----- Header tools: XP meter next to the sound toggle ---------------------- */
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.xp-meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+.xp-meter__level {
+  font-weight: 700;
+  color: var(--text-h);
+}
+.xp-meter__bar {
+  width: 72px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.xp-meter__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+.xp-meter__xp {
+  color: var(--muted);
+}
+@media (max-width: 480px) {
+  .xp-meter__xp {
+    display: none;
+  }
+  .xp-meter__bar {
+    width: 48px;
   }
 }

@@ -2,6 +2,7 @@ import { lazy, Suspense, type CSSProperties } from 'react'
 import { SceneErrorBoundary } from '../components/canvas/SceneErrorBoundary'
 import { WelcomePanel } from '../components/panels/WelcomePanel'
 import { BadgeToast } from '../components/ui/BadgeToast'
+import { XpMeter } from '../components/ui/XpMeter'
 import { getModule, mathModules } from '../data/mathModules'
 import type { ModuleRuntimes, ProgressApi } from '../modules/types'
 import { MathCanvas } from '../modules/shared'
@@ -86,15 +87,18 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
             </button>
           ))}
         </nav>
-        <button
-          type="button"
-          className="sound-toggle"
-          aria-pressed={soundOn}
-          onClick={onToggleSound}
-          title={soundOn ? 'Mute sounds' : 'Unmute sounds'}
-        >
-          {soundOn ? '🔊 Sound on' : '🔇 Sound off'}
-        </button>
+        <div className="header-tools">
+          <XpMeter xp={saved.xp} />
+          <button
+            type="button"
+            className="sound-toggle"
+            aria-pressed={soundOn}
+            onClick={onToggleSound}
+            title={soundOn ? 'Mute sounds' : 'Unmute sounds'}
+          >
+            {soundOn ? '🔊 Sound on' : '🔇 Sound off'}
+          </button>
+        </div>
       </header>
 
       <main className="app-main">

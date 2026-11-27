@@ -1,8 +1,8 @@
 /** Phase 2C: hash navigation and the Academy shell, through the real App (scenes mocked). */
-import { act, render, screen } from '@testing-library/react'
+import { act, cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { PROGRESS_STORAGE_KEY, type ProgressState } from './utils/progressStore'
+import { PROGRESS_STORAGE_KEY, defaultProgress, type ProgressState } from './utils/progressStore'
 
 vi.mock('./components/canvas/MathCanvas', () => ({
   default: ({ children }: { children?: unknown }) => <div data-testid="canvas">{children as never}</div>,
@@ -83,6 +83,19 @@ describe('hash navigation', () => {
 })
 
 describe('Academy shell', () => {
+  it('shows level and XP in the header only once XP has been earned', async () => {
+    render(<App />)
+    await heading()
+    expect(screen.queryByText(/^Lv /)).toBeNull()
+    cleanup()
+    const p = JSON.parse(JSON.stringify(defaultProgress()))
+    p.xp = 130
+    window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(p))
+    render(<App />)
+    expect((await screen.findByText(/^Lv /)).textContent).toBe('Lv 2')
+    expect(screen.getByText('130 XP')).toBeTruthy()
+  })
+
   it('lists every registered module as a tab and a welcome card', async () => {
     render(<App />)
     await heading()
