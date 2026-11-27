@@ -29,7 +29,7 @@ describe('welcome page grouping', () => {
       'Number Sense', 'Add & Subtract', 'Multiplication Arrays', 'Fractions', 'Division and Grouping', 'Decimals and Percentages', 'Integers and Number Lines',
     ])
     const geometry = screen.getByRole('region', { name: 'Geometry and Measurement' })
-    expect(cardTitles(geometry)).toEqual(['Area and Perimeter', 'Angles', 'Geometry 3D Explorer', 'Coordinate Plane'])
+    expect(cardTitles(geometry)).toEqual(['Area and Perimeter', 'Angles', 'Symmetry', 'Geometry 3D Explorer', 'Coordinate Plane'])
     const thinking = screen.getByRole('region', { name: 'Mathematical Thinking' })
     expect(cardTitles(thinking)).toEqual(['Patterns and Sequences', 'Data and Graphs', 'Probability'])
   })

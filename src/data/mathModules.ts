@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane' | 'integers' | 'probability'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane' | 'integers' | 'probability' | 'symmetry'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -184,6 +184,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#eab308',
     skills: ['Chance and likelihood', 'Fractions as probability', 'Experiments and trials'],
+  },
+  {
+    id: 'symmetry',
+    title: 'Symmetry',
+    tabLabel: 'Symmetry',
+    tagline: 'Fold, flip and match',
+    description:
+      'Find the lines of symmetry and the turns that fit for twelve shapes, then fix mirror patterns until both sides match.',
+    gradeBand: 'Grades 3–7',
+    status: 'available',
+    color: '#34d399',
+    skills: ['Lines of symmetry', 'Rotational symmetry', 'Reflection', 'Mirror patterns'],
   },
 ]
 

@@ -44,6 +44,7 @@ describe('hash navigation', () => {
     ['#/coordinate-plane', 'Coordinate Plane'],
     ['#/integers', 'Integers and Number Lines'],
     ['#/probability', 'Probability'],
+    ['#/symmetry', 'Symmetry'],
   ])('a link to %s opens that module directly', async (hash, title) => {
     window.location.hash = hash
     render(<App />)
@@ -114,7 +115,7 @@ describe('Academy shell', () => {
   it('lists every registered module as a tab and a welcome card', async () => {
     render(<App />)
     await heading()
-    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract', 'Multiply', 'Divide', 'Patterns', 'Area', 'Decimals', 'Graphs', 'Angles', 'Coordinates', 'Integers', 'Probability']) {
+    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract', 'Multiply', 'Divide', 'Patterns', 'Area', 'Decimals', 'Graphs', 'Angles', 'Coordinates', 'Integers', 'Probability', 'Symmetry']) {
       expect(screen.getByRole('button', { name })).toBeTruthy()
     }
     expect(document.querySelectorAll('.module-card')).toHaveLength(mathModules.length)

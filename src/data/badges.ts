@@ -152,6 +152,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'probability'),
   },
   {
+    id: 'symmetry-star',
+    icon: '🦋',
+    title: 'Symmetry Star',
+    description: 'Solve all Symmetry challenges.',
+    earned: (c) => allIn(c, 'symmetry'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

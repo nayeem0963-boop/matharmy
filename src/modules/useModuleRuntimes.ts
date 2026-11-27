@@ -11,6 +11,7 @@ import { useMultiplicationModule } from './multiplication/useMultiplicationModul
 import { usePatternsModule } from './patterns/usePatternsModule'
 import { useIntegersModule } from './integers/useIntegersModule'
 import { useProbabilityModule } from './probability/useProbabilityModule'
+import { useSymmetryModule } from './symmetry/useSymmetryModule'
 import { useNumberSenseModule } from './number-sense/useNumberSenseModule'
 import type { ModuleRuntimes, ProgressApi } from './types'
 
@@ -34,5 +35,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const coordinatePlane = useCoordinatePlaneModule(progress)
   const integers = useIntegersModule(progress)
   const probability = useProbabilityModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals, 'data-graphs': dataGraphs, angles, 'coordinate-plane': coordinatePlane, integers, probability }
+  const symmetry = useSymmetryModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter, decimals, 'data-graphs': dataGraphs, angles, 'coordinate-plane': coordinatePlane, integers, probability, symmetry }
 }

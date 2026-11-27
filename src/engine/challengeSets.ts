@@ -2,6 +2,7 @@ import { fractionChallenges, geometryChallenges, isFractionSolved, type Geometry
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
 import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
+import { isSymSolved, symChallenges, type SymChallenge, type SymView } from '../data/symmetry'
 import { isSpinnerSolved, spinnerChallenges, type SpinnerChallenge, type SpinnerState } from '../data/probability'
 import { intChallenges, isIntSolved, type IntChallenge, type IntState } from '../data/integers'
 import { isPlaneSolved, planeChallenges, type PlaneChallenge, type PlaneView } from '../data/coordinatePlane'
@@ -112,6 +113,12 @@ export const spinnerSet: ChallengeSet<SpinnerChallenge, SpinnerState> = {
   isSolved: isSpinnerSolved,
 }
 
+export const symmetrySet: ChallengeSet<SymChallenge, SymView> = {
+  module: 'symmetry',
+  challenges: symChallenges,
+  isSolved: isSymSolved,
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
@@ -128,4 +135,5 @@ export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   'coordinate-plane': planeSet.challenges,
   integers: integerSet.challenges,
   probability: spinnerSet.challenges,
+  symmetry: symmetrySet.challenges,
 }

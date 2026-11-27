@@ -1,3 +1,4 @@
+import { AXIS_LABELS, filledCount, getShape as getSymShape, linesText, rotationText, type Axis, type Cells, type ShapeId, type SymMode } from './symmetry'
 import { COLOURS, percentText as chancePercent, probabilityFraction, totalSectors, type SpinnerState, type Tally } from './probability'
 import { compareText, distanceBetween, expressionText, moveWords, signed, type IntState } from './integers'
 import { TRIANGLE_NAMES, locationText, pairText, type PlaneMode, type Vec } from './coordinatePlane'
@@ -89,4 +90,13 @@ export function spinnerLabel(s: SpinnerState, tally: Tally): string {
   const chances = COLOURS.map((c) => `${c} ${s[c]} of ${total} sectors, ${probabilityFraction(c, s)}`).join('; ')
   const results = s.spins === 0 ? 'No spins yet.' : `After ${s.spins} spins: ${COLOURS.map((c) => `${c} ${tally[c]} (${chancePercent(tally[c] / s.spins)})`).join(', ')}.`
   return `A spinner and a bar for each colour. ${chances}. ${results}`
+}
+
+export function symmetryLabel(mode: SymMode, shapeId: ShapeId, cells: Cells, axes: Axis[], badPairs: number): string {
+  if (mode === 'shapes') {
+    const s = getSymShape(shapeId)
+    return `A ${s.name.toLowerCase()} seen from above with yellow lines marking its lines of symmetry. ${linesText(s)}. ${rotationText(s)}.`
+  }
+  const match = badPairs === 0 ? 'Both sides match: the pattern is symmetric.' : `${badPairs} ${badPairs === 1 ? 'pair of tiles does' : 'pairs of tiles do'} not match across the mirror line.`
+  return `A 6 by 6 pattern of tiles with ${filledCount(cells)} on and a yellow mirror line (${axes.map((a) => AXIS_LABELS[a].toLowerCase()).join(' and ')}). ${match} Click a tile to turn it on or off.`
 }

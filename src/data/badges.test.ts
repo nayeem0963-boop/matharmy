@@ -15,6 +15,7 @@ import { areaChallenges } from './areaPerimeter'
 import { planeChallenges } from './coordinatePlane'
 import { intChallenges } from './integers'
 import { spinnerChallenges } from './probability'
+import { symChallenges } from './symmetry'
 import { graphChallenges } from './dataGraphs'
 import { decimalChallenges } from './decimals'
 import { patternChallenges } from './patterns'
@@ -23,7 +24,7 @@ import { numberSenseChallenges } from './placeValue'
 
 const ids = (list: { id: string }[]) => list.map((c) => c.id)
 const empty = (): BadgeContext => ({
-  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [], 'data-graphs': [], angles: [], 'coordinate-plane': [], integers: [], probability: [] },
+  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [], 'data-graphs': [], angles: [], 'coordinate-plane': [], integers: [], probability: [], symmetry: [] },
   bestStreak: 0,
 })
 const earned = (ctx: BadgeContext) => evaluateBadges(ctx)
@@ -32,7 +33,7 @@ describe('badge catalogue', () => {
   it('keeps the saved-progress badge ids unchanged', () => {
     expect(BADGE_IDS).toEqual([
       'first-steps', 'fraction-finder', 'fraction-master', 'shape-shifter', 'geometry-master',
-      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'graph-guru', 'angle-ace', 'plane-pilot', 'integer-explorer', 'chance-champion', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
+      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'graph-guru', 'angle-ace', 'plane-pilot', 'integer-explorer', 'chance-champion', 'symmetry-star', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
     ])
   })
   it('has unique ids and complete metadata', () => {
@@ -60,6 +61,7 @@ describe('badge catalogue', () => {
     expect(ids(MODULE_CHALLENGES['coordinate-plane'])).toEqual(ids(planeChallenges))
     expect(ids(MODULE_CHALLENGES.integers)).toEqual(ids(intChallenges))
     expect(ids(MODULE_CHALLENGES.probability)).toEqual(ids(spinnerChallenges))
+    expect(ids(MODULE_CHALLENGES.symmetry)).toEqual(ids(symChallenges))
   })
 })
 
@@ -221,6 +223,14 @@ describe('badge rules', () => {
     expect(earned(c)).toContain('chance-champion')
   })
 
+  it('Symmetry Star needs every Symmetry challenge', () => {
+    const c = empty()
+    c.solved.symmetry = ids(symChallenges).slice(1)
+    expect(earned(c)).not.toContain('symmetry-star')
+    c.solved.symmetry = ids(symChallenges)
+    expect(earned(c)).toContain('symmetry-star')
+  })
+
   it('MathArmy General needs every challenge in every module, and then earns every badge except streak-only ones that need the streak', () => {
     const c = empty()
     c.solved = {
@@ -238,6 +248,7 @@ describe('badge rules', () => {
       'coordinate-plane': ids(planeChallenges),
       integers: ids(intChallenges),
       probability: ids(spinnerChallenges),
+      symmetry: ids(symChallenges),
     }
     expect(earned(c)).toContain('matharmy-general')
     c.solved.geometry = c.solved.geometry.slice(1)
