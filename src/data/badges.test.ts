@@ -10,13 +10,14 @@ import {
 import { fractionChallenges, geometryChallenges } from './challenges'
 import { addSubtractChallenges } from './addSubtract'
 import { divisionChallenges } from './division'
+import { areaChallenges } from './areaPerimeter'
 import { patternChallenges } from './patterns'
 import { arrayChallenges } from './multiplication'
 import { numberSenseChallenges } from './placeValue'
 
 const ids = (list: { id: string }[]) => list.map((c) => c.id)
 const empty = (): BadgeContext => ({
-  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [] },
+  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [] },
   bestStreak: 0,
 })
 const earned = (ctx: BadgeContext) => evaluateBadges(ctx)
@@ -25,7 +26,7 @@ describe('badge catalogue', () => {
   it('keeps the saved-progress badge ids unchanged', () => {
     expect(BADGE_IDS).toEqual([
       'first-steps', 'fraction-finder', 'fraction-master', 'shape-shifter', 'geometry-master',
-      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
+      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
     ])
   })
   it('has unique ids and complete metadata', () => {
@@ -46,6 +47,7 @@ describe('badge catalogue', () => {
     expect(ids(MODULE_CHALLENGES.multiplication)).toEqual(ids(arrayChallenges))
     expect(ids(MODULE_CHALLENGES.division)).toEqual(ids(divisionChallenges))
     expect(ids(MODULE_CHALLENGES.patterns)).toEqual(ids(patternChallenges))
+    expect(ids(MODULE_CHALLENGES['area-perimeter'])).toEqual(ids(areaChallenges))
   })
 })
 
@@ -151,6 +153,14 @@ describe('badge rules', () => {
     expect(earned(c)).toContain('pattern-spotter')
   })
 
+  it('Area & Perimeter Ace needs every Area and Perimeter challenge', () => {
+    const c = empty()
+    c.solved['area-perimeter'] = ids(areaChallenges).slice(1)
+    expect(earned(c)).not.toContain('area-ace')
+    c.solved['area-perimeter'] = ids(areaChallenges)
+    expect(earned(c)).toContain('area-ace')
+  })
+
   it('MathArmy General needs every challenge in every module, and then earns every badge except streak-only ones that need the streak', () => {
     const c = empty()
     c.solved = {
@@ -161,6 +171,7 @@ describe('badge rules', () => {
       multiplication: ids(arrayChallenges),
       division: ids(divisionChallenges),
       patterns: ids(patternChallenges),
+      'area-perimeter': ids(areaChallenges),
     }
     expect(earned(c)).toContain('matharmy-general')
     c.solved.geometry = c.solved.geometry.slice(1)

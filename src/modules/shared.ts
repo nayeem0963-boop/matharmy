@@ -10,3 +10,4 @@ export const PlaceValueScene = lazy(() => import('../components/scenes/PlaceValu
 export const ArrayScene = lazy(() => import('../components/scenes/ArrayScene'))
 export const DivisionScene = lazy(() => import('../components/scenes/DivisionScene'))
 export const PatternScene = lazy(() => import('../components/scenes/PatternScene'))
+export const AreaScene = lazy(() => import('../components/scenes/AreaScene'))

@@ -30,6 +30,7 @@ const TIPS: Record<MathModuleId, string[]> = {
   'number-sense': ['Ten ones make a ten. Try trading them!', 'Zeros hold the places. 406 has no tens.'],
   'add-subtract': ['Stuck on subtracting? Break a ten into ten ones.', 'Ten ones make a ten. Trade them when you add.'],
   multiplication: ['Swap rows and columns: 3 × 4 and 4 × 3 match!', 'Click a cube to skip count up to its row.'],
+  'area-perimeter': ['Area counts tiles inside. Perimeter counts edges around.', 'Cut a corner off an L-shape: the area shrinks, the perimeter stays!'],
   patterns: ['Adding makes steady steps up. Multiplying curves upward!', 'To find a far term, use the rule instead of counting.'],
   division: ['Check division with multiplication: 6 × 3 + 2 = 20.', 'Leftovers are always smaller than what you divide by.'],
 }
