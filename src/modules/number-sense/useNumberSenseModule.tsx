@@ -6,13 +6,12 @@ import {
   REGROUP_SPECS,
   REGROUP_TOTAL_SECONDS,
   applyRegroup,
-  isNumberSenseSolved,
-  numberSenseChallenges,
   type Place,
   type PlaceValueCounts,
   type RegroupEvent,
   type RegroupKind,
 } from '../../data/placeValue'
+import { numberSenseSet } from '../../engine/challengeSets'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { playBreak, playBundle, playChime } from '../../utils/soundEffects'
 import { MathCanvas, PlaceValueScene } from '../shared'
@@ -43,16 +42,16 @@ export function useNumberSenseModule(progress: ProgressApi): ModuleRuntime {
   }, [])
   const { challenge, quiz } = useModuleQuiz({
     module: 'number-sense',
-    challenges: numberSenseChallenges,
+    challenges: numberSenseSet.challenges,
     enabled: quizOn,
-    isSolved: (c) => isNumberSenseSolved(c, counts),
+    isSolved: (c) => numberSenseSet.isSolved(c, counts),
     onCelebrate: celebrate,
     progress,
   })
 
   return {
     stars: quiz.score,
-    total: numberSenseChallenges.length,
+    total: numberSenseSet.challenges.length,
     panel: (
       <NumberSensePanel
         counts={counts}

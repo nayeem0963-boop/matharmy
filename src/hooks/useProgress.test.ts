@@ -27,6 +27,30 @@ describe('useProgress', () => {
     expect(stored().modules.fractions.solved).toEqual(['f-1-2'])
   })
 
+  it('awards XP by tier for the first solve only', () => {
+    const { result } = renderHook(() => useProgress())
+    act(() => result.current.recordSolve('fractions', 'f-1-2')) // easy
+    act(() => result.current.recordSolve('fractions', 'f-2-5')) // medium
+    act(() => result.current.recordSolve('geometry', 'g-tri-12')) // hard
+    expect(result.current.progress.xp).toBe(10 + 20 + 30)
+    act(() => result.current.recordSolve('fractions', 'f-1-2')) // replay
+    expect(result.current.progress.xp).toBe(60)
+    expect(stored().xp).toBe(60)
+  })
+
+  it('awards no XP for an unknown challenge id', () => {
+    const { result } = renderHook(() => useProgress())
+    act(() => result.current.recordSolve('fractions', 'made-up'))
+    expect(result.current.progress.xp).toBe(0)
+  })
+
+  it('resetProgress also resets XP', () => {
+    const { result } = renderHook(() => useProgress())
+    act(() => result.current.recordSolve('fractions', 'f-1-2'))
+    act(() => result.current.resetProgress())
+    expect(result.current.progress.xp).toBe(0)
+  })
+
   it('breakStreak resets the streak but keeps the best streak and solves', () => {
     const { result } = renderHook(() => useProgress())
     act(() => result.current.recordSolve('geometry', 'g-sphere'))

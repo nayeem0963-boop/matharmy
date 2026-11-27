@@ -1,13 +1,9 @@
-import { fractionChallenges, geometryChallenges, type Tier } from './challenges'
+import { MODULE_CHALLENGES } from '../engine/challengeSets'
+import type { Tier } from './challenges'
 import type { MathModuleId } from './mathModules'
-import { numberSenseChallenges } from './placeValue'
 
-/** Every challenge list, keyed by module (used for tier lookups and "solve all" badges). */
-export const MODULE_CHALLENGES: Record<MathModuleId, { id: string; tier: Tier }[]> = {
-  fractions: fractionChallenges,
-  geometry: geometryChallenges,
-  'number-sense': numberSenseChallenges,
-}
+// Re-exported for existing callers; the registry itself lives in the engine.
+export { MODULE_CHALLENGES }
 
 /** What badge rules can look at (derived from saved progress). */
 export interface BadgeContext {

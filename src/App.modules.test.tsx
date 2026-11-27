@@ -305,7 +305,8 @@ describe('saved progress', () => {
     expect(screen.getByLabelText('1 of 12 challenges solved')).toBeTruthy()
     expect(screen.queryByText('Badge unlocked!')).toBeNull()
     expect(screen.getByText('Fraction Finder').closest('li')!.className).toContain('badge-tile--earned')
-    expect(saved().version).toBe(2)
+    expect(saved().version).toBe(3)
+    expect(saved().xp).toBe(50)
     expect(saved().badges).toHaveProperty('fraction-finder')
   })
 

@@ -1,6 +1,7 @@
-import { BADGE_IDS, evaluateBadges } from '../data/badges'
+import { BADGE_IDS, MODULE_CHALLENGES, evaluateBadges } from '../data/badges'
 import { TIERS, type Tier } from '../data/challenges'
 import type { MathModuleId } from '../data/mathModules'
+import { XP_BY_TIER } from '../data/xp'
 
 /**
  * Learner progress saved in localStorage.
@@ -13,9 +14,12 @@ import type { MathModuleId } from '../data/mathModules'
  * History:
  *   v1: solved challenge IDs per module, sound preference, last view.
  *   v2: + selected difficulty tier, current/best streak per module, earned badges.
+ *   v3: + xp, and empty containers for missions and lessons (no UI uses them yet).
+ *       v1 and v2 saves upgrade in place: nothing is lost, and xp is worked out
+ *       from the challenges already solved.
  */
 export const PROGRESS_STORAGE_KEY = 'matharmy:progress'
-export const PROGRESS_VERSION = 2
+export const PROGRESS_VERSION = 3
 
 export type ProgressView = 'welcome' | MathModuleId
 
@@ -29,11 +33,30 @@ export interface ModuleProgress {
   bestStreak: number
 }
 
+/** Progress through a mission (an ordered set of steps). Reserved for the mission system. */
+export interface MissionProgress {
+  /** IDs of steps finished so far. */
+  steps: string[]
+  /** Time the whole mission was completed (ms since epoch), once it is. */
+  completedAt?: number
+}
+
+/** A finished lesson. Reserved for the lesson system. */
+export interface LessonProgress {
+  completedAt: number
+}
+
 export interface ProgressState {
   version: typeof PROGRESS_VERSION
   modules: Record<MathModuleId, ModuleProgress>
   /** Earned badge ID → time it was earned (ms since epoch). */
   badges: Record<string, number>
+  /** Total experience points. The level is derived from this (`levelFromXp`). */
+  xp: number
+  /** Mission ID → progress. Empty until missions exist. */
+  missions: Record<string, MissionProgress>
+  /** Lesson ID → completion. Empty until lessons exist. */
+  lessons: Record<string, LessonProgress>
   soundOn: boolean
   lastView: ProgressView
   updatedAt: number
@@ -49,6 +72,9 @@ export function defaultProgress(): ProgressState {
     version: PROGRESS_VERSION,
     modules: { fractions: defaultModule(), geometry: defaultModule(), 'number-sense': defaultModule() },
     badges: {},
+    xp: 0,
+    missions: {},
+    lessons: {},
     soundOn: true,
     lastView: 'welcome',
     updatedAt: 0,
@@ -59,10 +85,46 @@ const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'obj
 const count = (v: unknown, max = 9999) =>
   typeof v === 'number' && Number.isFinite(v) ? Math.min(max, Math.max(0, Math.floor(v))) : 0
 
+const MAX_XP = 1_000_000
+const MAX_RECORDS = 200
+const validId = (s: unknown): s is string => typeof s === 'string' && s.length > 0 && s.length < 64
+
+/** XP the challenges in `modules` are worth (first solves only). */
+export function xpFromSolved(modules: Record<MathModuleId, ModuleProgress>): number {
+  let xp = 0
+  for (const id of MODULE_IDS) {
+    for (const c of MODULE_CHALLENGES[id]) if (modules[id].solved.includes(c.id)) xp += XP_BY_TIER[c.tier]
+  }
+  return xp
+}
+
+function sanitizeMissions(raw: unknown): Record<string, MissionProgress> {
+  const out: Record<string, MissionProgress> = {}
+  if (!isRecord(raw)) return out
+  for (const [id, m] of Object.entries(raw).slice(0, MAX_RECORDS)) {
+    if (!validId(id) || !isRecord(m)) continue
+    const steps = Array.isArray(m.steps) ? [...new Set(m.steps.filter(validId))].slice(0, MAX_RECORDS) : []
+    out[id] = typeof m.completedAt === 'number' && Number.isFinite(m.completedAt) ? { steps, completedAt: m.completedAt } : { steps }
+  }
+  return out
+}
+
+function sanitizeLessons(raw: unknown): Record<string, LessonProgress> {
+  const out: Record<string, LessonProgress> = {}
+  if (!isRecord(raw)) return out
+  for (const [id, l] of Object.entries(raw).slice(0, MAX_RECORDS)) {
+    if (validId(id) && isRecord(l) && typeof l.completedAt === 'number' && Number.isFinite(l.completedAt)) {
+      out[id] = { completedAt: l.completedAt }
+    }
+  }
+  return out
+}
+
 /**
  * Turn any parsed value (v1 save, hand-edited, corrupted) into a valid current
- * state. v1 has no tier/streak/badge fields, so those take their defaults; badges
- * already deserved by the saved solves are granted (silently) right after.
+ * state. Older saves lack newer fields, so those take their defaults (xp is worked
+ * out from the saved solves); badges already deserved are granted (silently) right
+ * after.
  */
 export function migrateProgress(raw: unknown): ProgressState {
   const state = defaultProgress()
@@ -86,6 +148,12 @@ export function migrateProgress(raw: unknown): ProgressState {
       if (BADGE_IDS.includes(id) && typeof at === 'number' && Number.isFinite(at)) state.badges[id] = at
     }
   }
+  state.xp =
+    typeof raw.xp === 'number' && Number.isFinite(raw.xp)
+      ? Math.min(MAX_XP, Math.max(0, Math.floor(raw.xp)))
+      : xpFromSolved(state.modules)
+  state.missions = sanitizeMissions(raw.missions)
+  state.lessons = sanitizeLessons(raw.lessons)
   if (typeof raw.soundOn === 'boolean') state.soundOn = raw.soundOn
   if (typeof raw.lastView === 'string' && (VIEWS as string[]).includes(raw.lastView)) {
     state.lastView = raw.lastView as ProgressView

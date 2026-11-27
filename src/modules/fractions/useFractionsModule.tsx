@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { FractionsPanel, MAX_DENOMINATOR } from '../../components/panels/FractionsPanel'
-import { fractionChallenges, isFractionSolved } from '../../data/challenges'
+import { fractionSet } from '../../engine/challengeSets'
 import { getModule } from '../../data/mathModules'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { playChime } from '../../utils/soundEffects'
@@ -29,16 +29,16 @@ export function useFractionsModule(progress: ProgressApi): ModuleRuntime {
   }, [])
   const { challenge, quiz } = useModuleQuiz({
     module: 'fractions',
-    challenges: fractionChallenges,
+    challenges: fractionSet.challenges,
     enabled: quizOn,
-    isSolved: (c) => isFractionSolved(c, numerator, denominator),
+    isSolved: (c) => fractionSet.isSolved(c, { numerator, denominator }),
     onCelebrate: celebrate,
     progress,
   })
 
   return {
     stars: quiz.score,
-    total: fractionChallenges.length,
+    total: fractionSet.challenges.length,
     panel: (
       <FractionsPanel
         numerator={numerator}

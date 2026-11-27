@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { GeometryFormulaOverlay } from '../../components/panels/GeometryFormulaOverlay'
 import { GeometryPanel } from '../../components/panels/GeometryPanel'
-import { geometryChallenges } from '../../data/challenges'
+import { geometrySet } from '../../engine/challengeSets'
 import { getModule } from '../../data/mathModules'
 import { useModuleQuiz } from '../../hooks/useModuleQuiz'
 import { useShapeDimensions } from '../../hooks/useShapeDimensions'
@@ -23,17 +23,17 @@ export function useGeometryModule(progress: ProgressApi): ModuleRuntime {
   }, [])
   const { challenge, quiz } = useModuleQuiz({
     module: 'geometry',
-    challenges: geometryChallenges,
+    challenges: geometrySet.challenges,
     enabled: quizOn,
     isSolved: (c) =>
-      c.check({ shapeId: geometry.shapeId, dimensions: geometry.dimensions, metrics: geometry.metrics }),
+      geometrySet.isSolved(c, { shapeId: geometry.shapeId, dimensions: geometry.dimensions, metrics: geometry.metrics }),
     onCelebrate: celebrate,
     progress,
   })
 
   return {
     stars: quiz.score,
-    total: geometryChallenges.length,
+    total: geometrySet.challenges.length,
     panel: (
       <GeometryPanel geometry={geometry} quizOn={quizOn} onQuizChange={setQuizOn} challenge={challenge} quiz={quiz} />
     ),

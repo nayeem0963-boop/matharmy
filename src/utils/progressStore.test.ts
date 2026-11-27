@@ -17,8 +17,11 @@ describe('defaultProgress', () => {
   it('is an empty, current-version state', () => {
     const p = defaultProgress()
     expect(p.version).toBe(PROGRESS_VERSION)
-    expect(PROGRESS_VERSION).toBe(2)
+    expect(PROGRESS_VERSION).toBe(3)
     expect(p.badges).toEqual({})
+    expect(p.xp).toBe(0)
+    expect(p.missions).toEqual({})
+    expect(p.lessons).toEqual({})
     expect(p.soundOn).toBe(true)
     expect(p.lastView).toBe('welcome')
     for (const m of Object.values(p.modules)) expect(m).toEqual({ solved: [], tier: 'easy', streak: 0, bestStreak: 0 })
@@ -50,7 +53,8 @@ describe('migrateProgress', () => {
       updatedAt: 1234,
     }
     const p = migrateProgress(v1)
-    expect(p.version).toBe(2)
+    expect(p.version).toBe(3)
+    expect(p.xp).toBe(50) // 4 easy fractions + 1 easy geometry challenge, 10 XP each
     expect(p.modules.fractions).toEqual({
       solved: ['f-1-2', 'f-1-4', 'f-3-4', 'f-2-3'], tier: 'easy', streak: 0, bestStreak: 0,
     })
@@ -62,7 +66,7 @@ describe('migrateProgress', () => {
     expect(p.badges['first-steps']).toBe(1234)
   })
 
-  it('keeps a valid v2 save as-is', () => {
+  it('upgrades a valid v2 save to v3 without losing anything', () => {
     const v2 = {
       version: 2,
       modules: {
@@ -75,7 +79,45 @@ describe('migrateProgress', () => {
       lastView: 'number-sense',
       updatedAt: 222,
     }
-    expect(migrateProgress(v2)).toEqual(v2)
+    expect(migrateProgress(v2)).toEqual({ ...v2, version: 3, xp: 20, missions: {}, lessons: {} })
+  })
+
+  it('keeps a valid v3 save as-is, including its own xp', () => {
+    const v3 = {
+      ...defaultProgress(),
+      modules: { ...defaultProgress().modules, fractions: { solved: ['f-1-2'], tier: 'easy', streak: 1, bestStreak: 1 } },
+      badges: { 'first-steps': 5 },
+      xp: 999, // not recomputed when present
+      missions: { 'm-1': { steps: ['a', 'b'], completedAt: 9 }, 'm-2': { steps: [] } },
+      lessons: { 'l-1': { completedAt: 7 } },
+      updatedAt: 6,
+    }
+    expect(migrateProgress(v3)).toEqual(v3)
+  })
+
+  it('sanitises xp, missions and lessons', () => {
+    const p = migrateProgress({
+      xp: -5,
+      missions: { ok: { steps: ['a', 'a', '', 3], completedAt: 'x' }, bad: 'nope', '': { steps: [] } },
+      lessons: { ok: { completedAt: 3 }, bad: { completedAt: 'x' }, worse: 4 },
+    })
+    expect(p.xp).toBe(0)
+    expect(p.missions).toEqual({ ok: { steps: ['a'] } })
+    expect(p.lessons).toEqual({ ok: { completedAt: 3 } })
+    expect(migrateProgress({ xp: 1e12 }).xp).toBe(1_000_000)
+    expect(migrateProgress({ xp: 12.9 }).xp).toBe(12)
+    expect(migrateProgress({ xp: 'lots' }).xp).toBe(0) // not a number: worked out from solves (none)
+  })
+
+  it('works out xp from every tier when it is missing', () => {
+    const p = migrateProgress({
+      modules: {
+        fractions: { solved: ['f-1-2', 'f-2-5', 'f-5-4'] }, // easy + medium + hard
+        geometry: { solved: ['g-sphere'] },
+        'number-sense': { solved: ['no-such-id'] },
+      },
+    })
+    expect(p.xp).toBe(10 + 20 + 30 + 10)
   })
 
   it('sanitises each field independently', () => {
@@ -172,11 +214,12 @@ describe('load / save / clear', () => {
   it('round-trips through localStorage', () => {
     const s = defaultProgress()
     s.modules.geometry.solved = ['g-sphere']
+    s.xp = 10
     s.modules.geometry.tier = 'hard'
     s.lastView = 'geometry'
     s.updatedAt = 50
     saveProgress(s)
-    expect(JSON.parse(window.localStorage.getItem(PROGRESS_STORAGE_KEY)!)).toMatchObject({ version: 2 })
+    expect(JSON.parse(window.localStorage.getItem(PROGRESS_STORAGE_KEY)!)).toMatchObject({ version: 3, xp: 10 })
     const loaded = loadProgress()
     expect(loaded.modules.geometry).toMatchObject({ solved: ['g-sphere'], tier: 'hard' })
     expect(loaded.lastView).toBe('geometry')
