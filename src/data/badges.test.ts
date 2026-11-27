@@ -11,6 +11,7 @@ import { fractionChallenges, geometryChallenges } from './challenges'
 import { addSubtractChallenges } from './addSubtract'
 import { divisionChallenges } from './division'
 import { areaChallenges } from './areaPerimeter'
+import { graphChallenges } from './dataGraphs'
 import { decimalChallenges } from './decimals'
 import { patternChallenges } from './patterns'
 import { arrayChallenges } from './multiplication'
@@ -18,7 +19,7 @@ import { numberSenseChallenges } from './placeValue'
 
 const ids = (list: { id: string }[]) => list.map((c) => c.id)
 const empty = (): BadgeContext => ({
-  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [] },
+  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [], 'data-graphs': [] },
   bestStreak: 0,
 })
 const earned = (ctx: BadgeContext) => evaluateBadges(ctx)
@@ -27,7 +28,7 @@ describe('badge catalogue', () => {
   it('keeps the saved-progress badge ids unchanged', () => {
     expect(BADGE_IDS).toEqual([
       'first-steps', 'fraction-finder', 'fraction-master', 'shape-shifter', 'geometry-master',
-      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
+      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'graph-guru', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
     ])
   })
   it('has unique ids and complete metadata', () => {
@@ -50,6 +51,7 @@ describe('badge catalogue', () => {
     expect(ids(MODULE_CHALLENGES.patterns)).toEqual(ids(patternChallenges))
     expect(ids(MODULE_CHALLENGES['area-perimeter'])).toEqual(ids(areaChallenges))
     expect(ids(MODULE_CHALLENGES.decimals)).toEqual(ids(decimalChallenges))
+    expect(ids(MODULE_CHALLENGES['data-graphs'])).toEqual(ids(graphChallenges))
   })
 })
 
@@ -171,6 +173,14 @@ describe('badge rules', () => {
     expect(earned(c)).toContain('decimal-detective')
   })
 
+  it('Graph Guru needs every Data and Graphs challenge', () => {
+    const c = empty()
+    c.solved['data-graphs'] = ids(graphChallenges).slice(1)
+    expect(earned(c)).not.toContain('graph-guru')
+    c.solved['data-graphs'] = ids(graphChallenges)
+    expect(earned(c)).toContain('graph-guru')
+  })
+
   it('MathArmy General needs every challenge in every module, and then earns every badge except streak-only ones that need the streak', () => {
     const c = empty()
     c.solved = {
@@ -183,6 +193,7 @@ describe('badge rules', () => {
       patterns: ids(patternChallenges),
       'area-perimeter': ids(areaChallenges),
       decimals: ids(decimalChallenges),
+      'data-graphs': ids(graphChallenges),
     }
     expect(earned(c)).toContain('matharmy-general')
     c.solved.geometry = c.solved.geometry.slice(1)

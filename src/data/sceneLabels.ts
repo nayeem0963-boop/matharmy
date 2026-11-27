@@ -1,3 +1,4 @@
+import { formatStat, meanOf, medianOf, rangeOf, totalOf, type Topic } from './dataGraphs'
 import { decimalText, fractionText, percentText, placeWords } from './decimals'
 import { SHAPE_LABELS, areaOf, perimeterOf, type AreaState } from './areaPerimeter'
 import { TERMS_SHOWN, ruleSentence, termAt, termsOf, type PatternState } from './patterns'
@@ -55,4 +56,9 @@ export function areaLabel(s: AreaState, showArea: boolean, showPerimeter: boolea
 
 export function decimalLabel(squares: number): string {
   return `A grid of 100 squares in 10 columns, with ${squares} shaded: ${placeWords(squares)}. That is ${decimalText(squares)} as a decimal, ${fractionText(squares)} as a fraction and ${percentText(squares)} as a percent.`
+}
+
+export function graphLabel(topic: Topic, values: number[], showMean: boolean): string {
+  const bars = topic.categories.map((c, i) => `${c} ${values[i]}`).join(', ')
+  return `A bar graph of ${topic.question.toLowerCase()}: ${bars}. Total ${totalOf(values)}, mean ${formatStat(meanOf(values))}, median ${formatStat(medianOf(values))}, range ${rangeOf(values)}.${showMean ? ' An orange line marks the mean.' : ''}`
 }

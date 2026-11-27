@@ -1,4 +1,4 @@
-import { lazy, Suspense, type CSSProperties } from 'react'
+import { lazy, Suspense, useEffect, useRef, type CSSProperties } from 'react'
 import { SceneErrorBoundary } from '../components/canvas/SceneErrorBoundary'
 import { WelcomePanel } from '../components/panels/WelcomePanel'
 import { BadgeToast } from '../components/ui/BadgeToast'
@@ -41,6 +41,11 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
   const active = view === 'welcome' ? null : getModule(view)
   const runtime = active ? runtimes[active.id] : null
   const captain = useCaptainReactions(saved)
+  // Keep the active tab visible in the scrolling tab row (e.g. after following a link).
+  const tabs = useRef<HTMLElement>(null)
+  useEffect(() => {
+    tabs.current?.querySelector('[aria-pressed="true"]')?.scrollIntoView?.({ block: 'nearest', inline: 'center' })
+  }, [view])
   const lastModule = saved.lastView === 'welcome' ? null : getModule(saved.lastView)
 
   const stars = Object.fromEntries(mathModules.map((m) => [m.id, runtimes[m.id].stars])) as Record<
@@ -76,7 +81,7 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
           </span>
           <span className="brand__name">MathArmy</span>
         </button>
-        <nav className="module-tabs" aria-label="Math modules">
+        <nav className="module-tabs" aria-label="Math modules" ref={tabs}>
           {mathModules.map((m) => (
             <button
               key={m.id}
