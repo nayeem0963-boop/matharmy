@@ -91,6 +91,17 @@ describe('Academy shell', () => {
     expect(document.querySelectorAll('.module-card')).toHaveLength(3)
   })
 
+  it('themes the controls with the active module colour (and not on the welcome page)', async () => {
+    render(<App />)
+    await heading()
+    const root = () => document.querySelector('.app') as HTMLElement
+    expect(root().style.getPropertyValue('--module-color')).toBe('')
+    await openTab('Geometry')
+    expect(root().style.getPropertyValue('--module-color')).toBe('#22c55e')
+    await openTab('Fractions')
+    expect(root().style.getPropertyValue('--module-color')).toBe('#f59e0b')
+  })
+
   it('labels the stage for the current view', async () => {
     render(<App />)
     expect(await screen.findByLabelText('Captain Hexa-Cubie welcome scene')).toBeTruthy()

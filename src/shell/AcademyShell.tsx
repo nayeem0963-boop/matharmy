@@ -57,7 +57,7 @@ export function AcademyShell({ view, onNavigate, runtimes, progress, soundOn, on
   )
 
   return (
-    <div className="app">
+    <div className="app" style={active ? ({ '--module-color': active.color } as CSSProperties) : undefined}>
       <header className="app-header">
         <button
           type="button"

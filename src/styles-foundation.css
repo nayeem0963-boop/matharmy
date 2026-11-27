@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Phase 2E: visual and responsive foundation. Loaded after App.css, so these
+   rules refine it without changing the desktop design.
+   ========================================================================== */
+
+:root {
+  --focus: #fde047;
+  /* Set by the Academy shell to the active module's colour; falls back to the brand amber. */
+  --module-color: var(--accent);
+}
+
+/* ----- Keyboard focus: one visible ring everywhere -------------------------- */
+:where(button, a, input, select, textarea, [role='switch'], [role='radio'], [tabindex]):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.stepper__row input:focus-visible {
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
+/* ----- One accent per module for sliders and switches ---------------------- */
+.stepper__row input {
+  accent-color: var(--module-color);
+}
+.toggle[aria-checked='true'] .toggle__track {
+  background: var(--module-color);
+  border-color: var(--module-color);
+}
+
+/* ----- Never scroll sideways: labels anchored in 3D must not widen the page - */
+.stage,
+.math-canvas {
+  overflow: hidden;
+}
+
+/* ----- Reduced motion: no transitions, animations or smooth scrolling ------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----- Touch: bigger targets on coarse pointers (phones, tablets) ----------- */
+@media (pointer: coarse) {
+  .stepper__row button {
+    width: 44px;
+    height: 44px;
+  }
+  .module-tab,
+  .sound-toggle,
+  .shape-picker__btn,
+  .regroup__btn,
+  .challenge__next,
+  .tier-switch__option {
+    min-height: 44px;
+  }
+  .toggle {
+    min-height: 44px;
+  }
+}
+
+/* ----- Phones and small tablets (portrait): 3D view first and always visible - */
+@media (max-width: 800px) {
+  .app-header {
+    padding: 8px 16px;
+    gap: 8px;
+  }
+  /* Tabs get their own full-width row that scrolls inside itself. */
+  .module-tabs {
+    order: 3;
+    flex: 1 0 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .module-tab {
+    flex: none;
+  }
+  .sound-toggle {
+    margin-left: auto;
+  }
+
+  .app-main {
+    /* stage on top, controls below */
+    grid-template-rows: clamp(240px, 44svh, 420px) auto;
+  }
+  .stage {
+    order: -1;
+    min-height: 0;
+    position: sticky; /* stays in view while the controls scroll underneath */
+    top: 0;
+    z-index: 2;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel {
+    padding: 16px;
+    border-right: 0;
+  }
+  /* The readout becomes a compact strip along the bottom so it never covers the model. */
+  .formula-overlay {
+    top: auto;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    width: auto;
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .formula-overlay__working {
+    display: none;
+  }
+}
+
+/* ----- Landscape phones (short and wide): keep side-by-side, trim chrome ----- */
+@media (max-height: 520px) and (min-width: 801px) {
+  .app-header {
+    padding: 6px 16px;
+  }
+  .panel {
+    padding: 12px 16px;
+  }
+  .panel__title {
+    font-size: 22px;
+  }
+}
+@media (max-height: 520px) and (max-width: 800px) {
+  /* Short phones in portrait-ish windows: less of the screen for the 3D view */
+  .app-main {
+    grid-template-rows: clamp(180px, 50svh, 320px) auto;
+  }
+}
