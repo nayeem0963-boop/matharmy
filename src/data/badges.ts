@@ -89,6 +89,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'multiplication'),
   },
   {
+    id: 'fair-sharer',
+    icon: '🍰',
+    title: 'Fair Sharer',
+    description: 'Solve all Division and Grouping challenges.',
+    earned: (c) => allIn(c, 'division'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

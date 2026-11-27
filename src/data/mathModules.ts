@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -76,6 +76,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#f472b6',
     skills: ['Repeated addition', 'Skip counting', 'Order does not matter', 'Fact families'],
+  },
+  {
+    id: 'division',
+    title: 'Division and Grouping',
+    tabLabel: 'Divide',
+    tagline: 'Share and group, with leftovers',
+    description:
+      'Share cubes equally or make groups of a set size. See the quotient, the remainder and the multiplication that checks your division.',
+    gradeBand: 'Grades 3–5',
+    status: 'available',
+    color: '#84cc16',
+    skills: ['Sharing equally', 'Grouping', 'Remainders', 'Division and multiplication'],
   },
 ]
 

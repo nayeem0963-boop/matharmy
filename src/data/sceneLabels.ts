@@ -1,3 +1,4 @@
+import { describe as describeDivision, type DivisionState } from './division'
 import { OPERATION_SYMBOL, type Operation } from './addSubtract'
 import { formatNumber, type ShapeDefinition, type ShapeMetrics } from './geometryShapes'
 import { numberToWords, placeValueTotal, type PlaceValueCounts } from './placeValue'
@@ -33,4 +34,8 @@ export function sumLabel(op: Operation, a: number, b: number, counts: PlaceValue
 export function arrayLabel(rows: number, cols: number, counted: number): string {
   const counting = counted > 0 ? ` The first ${counted} ${counted === 1 ? 'row is' : 'rows are'} highlighted for counting.` : ''
   return `An array of cubes: ${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}, ${rows * cols} cubes in all, showing ${rows} times ${cols} equals ${rows * cols}.${counting}`
+}
+
+export function divisionLabel(s: DivisionState): string {
+  return `Cubes laid out in rows, one row per group, with any left-over cubes in red in a separate row. ${describeDivision(s)}.`
 }
