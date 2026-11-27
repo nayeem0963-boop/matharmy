@@ -1,3 +1,4 @@
+import { decimalText, fractionText, percentText, placeWords } from './decimals'
 import { SHAPE_LABELS, areaOf, perimeterOf, type AreaState } from './areaPerimeter'
 import { TERMS_SHOWN, ruleSentence, termAt, termsOf, type PatternState } from './patterns'
 import { describe as describeDivision, type DivisionState } from './division'
@@ -50,4 +51,8 @@ export function areaLabel(s: AreaState, showArea: boolean, showPerimeter: boolea
   const what = s.shape === 'rect' ? `A rectangle ${s.w} wide and ${s.h} tall` : `An L-shape in a ${s.w} by ${s.h} box with a ${s.nw} by ${s.nh} notch cut from one corner`
   const shown = [showArea ? 'unit tiles for the area' : '', showPerimeter ? 'orange edges for the perimeter' : ''].filter(Boolean).join(' and ')
   return `${what}, seen from above${shown ? ` with ${shown}` : ''}. Area ${areaOf(s)} square units, perimeter ${perimeterOf(s)} units. (${SHAPE_LABELS[s.shape]})`
+}
+
+export function decimalLabel(squares: number): string {
+  return `A grid of 100 squares in 10 columns, with ${squares} shaded: ${placeWords(squares)}. That is ${decimalText(squares)} as a decimal, ${fractionText(squares)} as a fraction and ${percentText(squares)} as a percent.`
 }

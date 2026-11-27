@@ -38,6 +38,7 @@ describe('hash navigation', () => {
     ['#/division', 'Division and Grouping'],
     ['#/patterns', 'Patterns and Sequences'],
     ['#/area-perimeter', 'Area and Perimeter'],
+    ['#/decimals', 'Decimals and Percentages'],
   ])('a link to %s opens that module directly', async (hash, title) => {
     window.location.hash = hash
     render(<App />)
@@ -108,7 +109,7 @@ describe('Academy shell', () => {
   it('lists every registered module as a tab and a welcome card', async () => {
     render(<App />)
     await heading()
-    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract', 'Multiply', 'Divide', 'Patterns', 'Area']) {
+    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract', 'Multiply', 'Divide', 'Patterns', 'Area', 'Decimals']) {
       expect(screen.getByRole('button', { name })).toBeTruthy()
     }
     expect(document.querySelectorAll('.module-card')).toHaveLength(mathModules.length)

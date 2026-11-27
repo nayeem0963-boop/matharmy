@@ -110,6 +110,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'area-perimeter'),
   },
   {
+    id: 'decimal-detective',
+    icon: '💯',
+    title: 'Decimal Detective',
+    description: 'Solve all Decimals and Percentages challenges.',
+    earned: (c) => allIn(c, 'decimals'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',
