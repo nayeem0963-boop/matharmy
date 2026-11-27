@@ -96,6 +96,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'division'),
   },
   {
+    id: 'pattern-spotter',
+    icon: '🔍',
+    title: 'Pattern Spotter',
+    description: 'Solve all Patterns and Sequences challenges.',
+    earned: (c) => allIn(c, 'patterns'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

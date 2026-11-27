@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -88,6 +88,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#84cc16',
     skills: ['Sharing equally', 'Grouping', 'Remainders', 'Division and multiplication'],
+  },
+  {
+    id: 'patterns',
+    title: 'Patterns and Sequences',
+    tabLabel: 'Patterns',
+    tagline: 'Spot the rule, predict the next',
+    description:
+      'Build number patterns that add or multiply the same amount each time. See them as bars, jump to any term, and find the rule behind them.',
+    gradeBand: 'Grades 1–6',
+    status: 'available',
+    color: '#fb7185',
+    skills: ['Number patterns', 'Skip counting', 'Rules and terms', 'Doubling and growth'],
   },
 ]
 

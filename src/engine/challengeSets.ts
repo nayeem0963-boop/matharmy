@@ -2,6 +2,7 @@ import { fractionChallenges, geometryChallenges, isFractionSolved, type Geometry
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
 import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
+import { isPatternSolved, patternChallenges, type PatternChallenge, type PatternState } from '../data/patterns'
 import { divisionChallenges, isDivisionSolved, type DivisionChallenge, type DivisionState } from '../data/division'
 import { arrayChallenges, isArraySolved, type ArrayChallenge, type ArrayState } from '../data/multiplication'
 import {
@@ -56,6 +57,12 @@ export const divisionSet: ChallengeSet<DivisionChallenge, DivisionState> = {
   isSolved: isDivisionSolved,
 }
 
+export const patternSet: ChallengeSet<PatternChallenge, PatternState> = {
+  module: 'patterns',
+  challenges: patternChallenges,
+  isSolved: isPatternSolved,
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
@@ -64,4 +71,5 @@ export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   'add-subtract': addSubtractSet.challenges,
   multiplication: multiplicationSet.challenges,
   division: divisionSet.challenges,
+  patterns: patternSet.challenges,
 }
