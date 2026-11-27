@@ -195,3 +195,38 @@
 .module-card__stars--earned {
   color: #fde047;
 }
+
+/* Strands and the grade filter (the cards themselves are unchanged) */
+.grade-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 4px;
+}
+.grade-filter__chip {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 13px;
+  cursor: pointer;
+}
+.grade-filter__chip:hover {
+  border-color: var(--accent);
+}
+.grade-filter__chip[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111;
+  font-weight: 600;
+}
+.strand {
+  margin-top: 14px;
+}
+.welcome__strand {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-h);
+}
+

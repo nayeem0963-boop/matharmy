@@ -152,8 +152,8 @@ describe('Angles: welcome and Captain', () => {
     window.location.hash = ''
     render(<App />)
     await screen.findByRole('heading', { level: 1 })
-    const cards = document.querySelector('.module-cards')!
-    expect([...cards.querySelectorAll('button')].some((b) => b.textContent?.includes('Turn the ray, name the angle'))).toBe(true)
+    const cards = [...document.querySelectorAll('.module-card')]
+    expect(cards.some((b) => b.textContent?.includes('Turn the ray, name the angle'))).toBe(true)
     const upcoming = document.querySelector('.upcoming')!
     expect(upcoming.textContent).not.toContain('Angles')
     expect(upcoming.textContent).toContain('Coordinate Plane')
