@@ -6,6 +6,7 @@ import {
   placeValueTotal,
   type PlaceValueCounts,
 } from '../../data/placeValue'
+import './place-value.css'
 
 /** Live number readout drawn over the corner of the 3D stage. */
 export function NumberSenseOverlay({ counts }: { counts: PlaceValueCounts }) {

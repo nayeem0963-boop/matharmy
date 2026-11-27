@@ -3,6 +3,7 @@ import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { Edges } from '@react-three/drei'
 import * as THREE from 'three'
 import { SceneHtml } from '../canvas/SceneHtml'
+import { useReducedMotion } from '../../utils/reducedMotion'
 import { ParticleBurst } from '../canvas/ParticleBurst'
 import {
   getShape,
@@ -40,6 +41,7 @@ export function GeometryExplorerScene({
   const shape = getShape(shapeId)
   const unfold = showNet && shape.hasNet
   const progress = useRef(0)
+  const reduced = useReducedMotion()
   const [hovered, setHovered] = useState(false)
 
   // One material shared by every face of every shape. Passed as a prop, so we own disposal.
@@ -72,7 +74,8 @@ export function GeometryExplorerScene({
 
   useFrame((_, delta) => {
     const target = unfold ? 1 : 0
-    const next = THREE.MathUtils.damp(progress.current, target, 4, delta)
+    // Reduced motion: jump straight to folded/unfolded instead of animating.
+    const next = reduced ? target : THREE.MathUtils.damp(progress.current, target, 4, delta)
     progress.current = Math.abs(next - target) < 1e-3 ? target : next
   })
 

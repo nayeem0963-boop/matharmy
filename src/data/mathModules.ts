@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -52,6 +52,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#3b82f6',
     skills: ['Place value', 'Regrouping', 'Comparing numbers'],
+  },
+  {
+    id: 'add-subtract',
+    title: 'Add & Subtract',
+    tabLabel: 'Add & Subtract',
+    tagline: 'Carry and borrow with blocks',
+    description:
+      'Add or take away with base-ten blocks. Trade ten ones for a ten to carry, or break a ten to borrow, and see the column method alongside.',
+    gradeBand: 'Grades 1–3',
+    status: 'available',
+    color: '#14b8a6',
+    skills: ['Adding with carrying', 'Subtracting with borrowing', 'Column method'],
   },
 ]
 

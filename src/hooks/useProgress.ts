@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { MODULE_CHALLENGES } from '../data/badges'
 import type { Tier } from '../data/challenges'
 import type { MathModuleId } from '../data/mathModules'
+import { XP_BY_TIER } from '../data/xp'
 import {
   PROGRESS_STORAGE_KEY,
   awardBadges,
@@ -45,14 +47,17 @@ export function useProgress() {
 
   const dismissBadge = useCallback(() => setBadgeQueue((q) => q.slice(1)), [])
 
-  /** Record a solve: adds the challenge (once) and grows the module's streak. */
+  /** Record a solve: adds the challenge (once, with its XP) and grows the module's streak. */
   const recordSolve = useCallback((module: MathModuleId, challengeId: string) => {
     setProgress((p) => {
       const m = p.modules[module]
       const streak = m.streak + 1
-      const solved = m.solved.includes(challengeId) ? m.solved : [...m.solved, challengeId]
+      const firstSolve = !m.solved.includes(challengeId)
+      const solved = firstSolve ? [...m.solved, challengeId] : m.solved
+      const tier = MODULE_CHALLENGES[module].find((c) => c.id === challengeId)?.tier
       const next: ProgressState = {
         ...p,
+        xp: firstSolve && tier ? p.xp + XP_BY_TIER[tier] : p.xp,
         modules: { ...p.modules, [module]: { ...m, solved, streak, bestStreak: Math.max(m.bestStreak, streak) } },
         updatedAt: Date.now(),
       }

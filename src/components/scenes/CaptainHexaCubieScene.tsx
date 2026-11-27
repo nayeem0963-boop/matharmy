@@ -3,8 +3,10 @@ import { useFrame, type ThreeEvent } from '@react-three/fiber'
 import { Edges, Float, Line, RoundedBox, Sparkles, Stars } from '@react-three/drei'
 import * as THREE from 'three'
 import { SceneHtml } from '../canvas/SceneHtml'
+import { useReducedMotion } from '../../utils/reducedMotion'
 import { ParticleBurst } from '../canvas/ParticleBurst'
 import { playHello, playPop } from '../../utils/soundEffects'
+import './captain.css'
 
 /* ------------------------------------------------------------------ */
 /* Palette (from the concept art)                                      */
@@ -513,6 +515,7 @@ function GoldTraces({ tier, seed }: { tier: TierSpec; seed: number }) {
 const PROJECTOR_DASHES = 16
 
 function CubeGridPlatform() {
+  const reduced = useReducedMotion()
   const solidRef = useRef<THREE.InstancedMesh>(null)
   const litRef = useRef<THREE.InstancedMesh>(null)
   const dashRing = useRef<THREE.Group>(null)
@@ -552,7 +555,7 @@ function CubeGridPlatform() {
 
   // Slowly rotating projector ring and a gentle beam shimmer.
   useFrame((state) => {
-    const t = state.clock.elapsedTime
+    const t = reduced ? 0 : state.clock.elapsedTime
     if (dashRing.current) dashRing.current.rotation.z = t * 0.35
     if (beam.current) {
       const m = beam.current.material as THREE.MeshBasicMaterial
@@ -710,6 +713,7 @@ const JUMP_SECONDS = 0.8
 const CHEER_MS = 1600
 
 export function CaptainHexaCubieScene() {
+  const reduced = useReducedMotion() // decorative motion (idle loops, hop/spin, sparkles) stops
   const [hovered, setHovered] = useState(false)
   const [cheering, setCheering] = useState(false)
   const [greeting, setGreeting] = useState(0)
@@ -792,8 +796,9 @@ export function CaptainHexaCubieScene() {
   }, [hovered])
 
   useFrame((state, delta) => {
-    const t = state.clock.elapsedTime
+    const t = reduced ? 0 : state.clock.elapsedTime
     const dt = Math.min(delta, 1 / 30)
+    if (reduced) jump.current = null
     const damp = THREE.MathUtils.damp
 
     if (rig.current) {
@@ -899,10 +904,10 @@ export function CaptainHexaCubieScene() {
         <sphereGeometry args={[50, 32, 16]} />
         <meshBasicMaterial map={nebula} side={THREE.BackSide} depthWrite={false} toneMapped={false} />
       </mesh>
-      <Stars radius={30} depth={18} count={2600} factor={3.5} saturation={0.5} fade speed={0.6} />
+      <Stars radius={30} depth={18} count={2600} factor={3.5} saturation={0.5} fade speed={reduced ? 0 : 0.6} />
       {/* Drifting sparkles around the Captain (procedural shader points) */}
-      <Sparkles count={70} scale={[6, 3.5, 5]} position={[0, 0.3, 0]} size={2.5} speed={0.35} opacity={0.8} color="#a5f3fc" />
-      <Sparkles count={40} scale={[5, 3, 4]} position={[0, 0.5, 0]} size={3} speed={0.25} opacity={0.7} color="#f0abfc" />
+      <Sparkles count={70} scale={[6, 3.5, 5]} position={[0, 0.3, 0]} size={2.5} speed={reduced ? 0 : 0.35} opacity={0.8} color="#a5f3fc" />
+      <Sparkles count={40} scale={[5, 3, 4]} position={[0, 0.5, 0]} size={3} speed={reduced ? 0 : 0.25} opacity={0.7} color="#f0abfc" />
 
       {/* Coloured rim lights stand in for an HDR environment */}
       <pointLight position={[-3, 1.5, 2]} intensity={11} color="#a855f7" />
@@ -1275,7 +1280,7 @@ export function CaptainHexaCubieScene() {
         </div>
       </SceneHtml>
 
-      <ParticleBurst trigger={burst} position={[0, 1.3, 0]} color="#f0abfc" count={140} />
+      <ParticleBurst trigger={reduced ? 0 : burst} position={[0, 1.3, 0]} color="#f0abfc" count={140} />
     </group>
   )
 }

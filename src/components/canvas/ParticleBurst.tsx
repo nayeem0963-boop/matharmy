@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { useReducedMotion } from '../../utils/reducedMotion'
 
 interface ParticleBurstProps {
   /** Increment to fire a burst. 0 (the initial value) never fires. */
@@ -30,6 +31,7 @@ export function ParticleBurst({
   duration = 1.2,
   size = 0.12,
 }: ParticleBurstProps) {
+  const reduced = useReducedMotion() // no celebratory particles when the device asks for less motion
   const pointsRef = useRef<THREE.Points>(null)
   const age = useRef(Number.POSITIVE_INFINITY)
 
@@ -59,7 +61,7 @@ export function ParticleBurst({
 
   // Fire: reset every particle to the origin with a random upward-biased velocity.
   useEffect(() => {
-    if (trigger <= 0) return
+    if (trigger <= 0 || reduced) return
     const pos = geometry.getAttribute('position') as THREE.BufferAttribute
     const arr = pos.array as Float32Array
     for (let i = 0; i < count; i++) {
@@ -73,7 +75,7 @@ export function ParticleBurst({
     }
     pos.needsUpdate = true
     age.current = 0
-  }, [trigger, geometry, velocities, count, speed])
+  }, [trigger, reduced, geometry, velocities, count, speed])
 
   useFrame((_, delta) => {
     const points = pointsRef.current
