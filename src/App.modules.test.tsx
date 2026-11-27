@@ -313,9 +313,9 @@ describe('saved progress', () => {
     save((p) => {
       p.modules.geometry.tier = 'hard'
       p.modules.geometry.solved = ['g-prism-area-52']
-      p.lastView = 'geometry'
     })
     render(<App />)
+    await openTab('Geometry')
     await challengeMode()
     expect(within(card()).getByRole('radio', { name: /Hard/ }).getAttribute('aria-checked')).toBe('true')
     expect(card().textContent).toContain('triangular prism with a volume of 12') // first unsolved Hard

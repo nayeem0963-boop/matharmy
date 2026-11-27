@@ -98,27 +98,32 @@ describe('regression: Geometry gives a free star when Challenge mode is switched
   })
 })
 
-describe('regression: the last viewed module is saved but not restored', () => {
-  it('reopens the module that was open when the page was last used', async () => {
+describe('regression: the saved last module is used (as a Continue shortcut, welcome stays the landing page)', () => {
+  const continueButton = () => screen.queryByRole('button', { name: /^Continue:/ })
+
+  it('always opens on the welcome page, even when a module was saved', async () => {
     save((p) => {
       p.lastView = 'geometry'
     })
     render(<App />)
-    expect((await heading()).textContent).toBe('Geometry 3D Explorer')
+    expect((await heading()).textContent).toMatch(/Math\s*Army/)
   })
 
-  it('opens a saved module directly and keeps recording navigation', async () => {
+  it('offers a Continue shortcut to the saved module, and it works', async () => {
     save((p) => {
       p.lastView = 'number-sense'
     })
     render(<App />)
+    await userEvent.click(screen.getByRole('button', { name: /^Continue: Number Sense/ }))
     expect((await heading()).textContent).toBe('Number Sense')
-    await userEvent.click(screen.getByRole('button', { name: 'MathArmy home' }))
-    expect(saved().lastView).toBe('welcome')
   })
 
-  it('still opens the welcome page when nothing was saved', async () => {
+  it('shows no Continue shortcut for a first visit, nor after the learner went home', async () => {
     render(<App />)
-    expect((await heading()).textContent).toMatch(/Math\s*Army/)
+    expect(continueButton()).toBeNull()
+    await openTab('Geometry')
+    await userEvent.click(screen.getByRole('button', { name: 'MathArmy home' }))
+    expect(continueButton()).toBeNull()
+    expect(saved().lastView).toBe('welcome')
   })
 })

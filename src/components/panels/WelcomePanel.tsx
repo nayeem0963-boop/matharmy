@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import { BADGES } from '../../data/badges'
-import { mathModules, upcomingModules, type MathModuleId } from '../../data/mathModules'
+import { mathModules, upcomingModules, type MathModule, type MathModuleId } from '../../data/mathModules'
 
 interface WelcomePanelProps {
   onSelect: (id: MathModuleId) => void
@@ -11,10 +11,19 @@ interface WelcomePanelProps {
   /** Earned badge ID → time earned. */
   earnedBadges: Record<string, number>
   onResetProgress: () => void
+  /** The module the learner was last using, offered as a shortcut (hidden when absent). */
+  continueModule?: MathModule | null
 }
 
 /** Sidebar content for the landing view: intro, module cards, badges. */
-export function WelcomePanel({ onSelect, stars, totals, earnedBadges, onResetProgress }: WelcomePanelProps) {
+export function WelcomePanel({
+  onSelect,
+  stars,
+  totals,
+  earnedBadges,
+  onResetProgress,
+  continueModule,
+}: WelcomePanelProps) {
   const totalStars = Object.values(stars).reduce((a, b) => a + b, 0)
   const earnedCount = BADGES.filter((b) => b.id in earnedBadges).length
   const confirmReset = () => {
@@ -34,6 +43,17 @@ export function WelcomePanel({ onSelect, stars, totals, earnedBadges, onResetPro
         Hands-on 3D math missions. Build fractions from blocks, unfold solids into nets and
         trade tens for ones, with Captain Hexa-Cubie cheering you on.
       </p>
+
+      {continueModule && (
+        <button
+          type="button"
+          className="welcome__continue"
+          style={{ '--card-color': continueModule.color } as CSSProperties}
+          onClick={() => onSelect(continueModule.id)}
+        >
+          Continue: {continueModule.title} <span aria-hidden="true">→</span>
+        </button>
+      )}
 
       <h2 className="welcome__heading">Choose a mission</h2>
       <div className="module-cards">
