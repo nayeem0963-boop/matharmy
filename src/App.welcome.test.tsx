@@ -26,7 +26,7 @@ describe('welcome page grouping', () => {
     expect(headings).toEqual(['Number and Operations', 'Geometry and Measurement', 'Mathematical Thinking'])
     const number = screen.getByRole('region', { name: 'Number and Operations' })
     expect(cardTitles(number)).toEqual([
-      'Number Sense', 'Add & Subtract', 'Multiplication Arrays', 'Fractions', 'Division and Grouping', 'Decimals and Percentages',
+      'Number Sense', 'Add & Subtract', 'Multiplication Arrays', 'Fractions', 'Division and Grouping', 'Decimals and Percentages', 'Integers and Number Lines',
     ])
     const geometry = screen.getByRole('region', { name: 'Geometry and Measurement' })
     expect(cardTitles(geometry)).toEqual(['Area and Perimeter', 'Angles', 'Geometry 3D Explorer', 'Coordinate Plane'])

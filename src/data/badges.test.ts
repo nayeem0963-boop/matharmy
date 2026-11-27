@@ -13,6 +13,7 @@ import { divisionChallenges } from './division'
 import { angleChallenges } from './angles'
 import { areaChallenges } from './areaPerimeter'
 import { planeChallenges } from './coordinatePlane'
+import { intChallenges } from './integers'
 import { graphChallenges } from './dataGraphs'
 import { decimalChallenges } from './decimals'
 import { patternChallenges } from './patterns'
@@ -21,7 +22,7 @@ import { numberSenseChallenges } from './placeValue'
 
 const ids = (list: { id: string }[]) => list.map((c) => c.id)
 const empty = (): BadgeContext => ({
-  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [], 'data-graphs': [], angles: [], 'coordinate-plane': [] },
+  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [], multiplication: [], division: [], patterns: [], 'area-perimeter': [], decimals: [], 'data-graphs': [], angles: [], 'coordinate-plane': [], integers: [] },
   bestStreak: 0,
 })
 const earned = (ctx: BadgeContext) => evaluateBadges(ctx)
@@ -30,7 +31,7 @@ describe('badge catalogue', () => {
   it('keeps the saved-progress badge ids unchanged', () => {
     expect(BADGE_IDS).toEqual([
       'first-steps', 'fraction-finder', 'fraction-master', 'shape-shifter', 'geometry-master',
-      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'graph-guru', 'angle-ace', 'plane-pilot', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
+      'place-value-pro', 'add-subtract-pro', 'array-architect', 'fair-sharer', 'pattern-spotter', 'area-ace', 'decimal-detective', 'graph-guru', 'angle-ace', 'plane-pilot', 'integer-explorer', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
     ])
   })
   it('has unique ids and complete metadata', () => {
@@ -56,6 +57,7 @@ describe('badge catalogue', () => {
     expect(ids(MODULE_CHALLENGES['data-graphs'])).toEqual(ids(graphChallenges))
     expect(ids(MODULE_CHALLENGES.angles)).toEqual(ids(angleChallenges))
     expect(ids(MODULE_CHALLENGES['coordinate-plane'])).toEqual(ids(planeChallenges))
+    expect(ids(MODULE_CHALLENGES.integers)).toEqual(ids(intChallenges))
   })
 })
 
@@ -201,6 +203,14 @@ describe('badge rules', () => {
     expect(earned(c)).toContain('plane-pilot')
   })
 
+  it('Integer Explorer needs every Integers challenge', () => {
+    const c = empty()
+    c.solved.integers = ids(intChallenges).slice(1)
+    expect(earned(c)).not.toContain('integer-explorer')
+    c.solved.integers = ids(intChallenges)
+    expect(earned(c)).toContain('integer-explorer')
+  })
+
   it('MathArmy General needs every challenge in every module, and then earns every badge except streak-only ones that need the streak', () => {
     const c = empty()
     c.solved = {
@@ -216,6 +226,7 @@ describe('badge rules', () => {
       'data-graphs': ids(graphChallenges),
       angles: ids(angleChallenges),
       'coordinate-plane': ids(planeChallenges),
+      integers: ids(intChallenges),
     }
     expect(earned(c)).toContain('matharmy-general')
     c.solved.geometry = c.solved.geometry.slice(1)

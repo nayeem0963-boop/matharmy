@@ -1,3 +1,4 @@
+import { compareText, distanceBetween, expressionText, moveWords, signed, type IntState } from './integers'
 import { TRIANGLE_NAMES, locationText, pairText, type PlaneMode, type Vec } from './coordinatePlane'
 import { KIND_NAMES, classify, turnFraction } from './angles'
 import { formatStat, meanOf, medianOf, rangeOf, totalOf, type Topic } from './dataGraphs'
@@ -73,4 +74,10 @@ export function planeLabel(mode: PlaneMode, point: Vec, triangle: Vec[]): string
   const grid = 'A coordinate plane seen from above, from -6 to 6 on both axes.'
   if (mode === 'plot') return `${grid} A point at ${pairText(point)}, ${locationText(point)}. Click the plane to move it.`
   return `${grid} A triangle with corners ${triangle.map((c, i) => `${TRIANGLE_NAMES[i]} at ${pairText(c)}`).join(', ')}, and a faint copy where it started.`
+}
+
+export function integerLabel(s: IntState): string {
+  const line = 'A number line from -10 to 10, red on the negative side and blue on the positive side.'
+  if (s.mode === 'move') return `${line} ${expressionText(s)}. ${moveWords(s)}`
+  return `${line} Point A at ${signed(s.p)} and point B at ${signed(s.q)}: ${compareText(s.p, s.q)}, ${distanceBetween(s.p, s.q)} apart.`
 }

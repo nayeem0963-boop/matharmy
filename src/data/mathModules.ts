@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane' | 'integers'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -160,6 +160,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#a78bfa',
     skills: ['Ordered pairs', 'Four quadrants', 'Slides, flips and turns'],
+  },
+  {
+    id: 'integers',
+    title: 'Integers and Number Lines',
+    tabLabel: 'Integers',
+    tagline: 'Negative numbers on the line',
+    description:
+      'Place numbers on a line from −10 to 10 and compare them, then add and subtract and watch the hop. See why subtracting a negative moves you right.',
+    gradeBand: 'Grades 5–7',
+    status: 'available',
+    color: '#06b6d4',
+    skills: ['Negative numbers', 'Comparing and opposites', 'Adding and subtracting integers'],
   },
 ]
 

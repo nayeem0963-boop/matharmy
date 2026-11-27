@@ -138,6 +138,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'coordinate-plane'),
   },
   {
+    id: 'integer-explorer',
+    icon: '➖',
+    title: 'Integer Explorer',
+    description: 'Solve all Integers and Number Lines challenges.',
+    earned: (c) => allIn(c, 'integers'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

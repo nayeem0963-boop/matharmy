@@ -41,7 +41,7 @@ describe('strands and grades', () => {
 
   it('sorts a strand by starting grade, keeping the foundation module first on a tie', () => {
     const number = groupModules(mathModules, filter('all'))[0].modules.map((m) => m.id)
-    expect(number).toEqual(['number-sense', 'add-subtract', 'multiplication', 'fractions', 'division', 'decimals'])
+    expect(number).toEqual(['number-sense', 'add-subtract', 'multiplication', 'fractions', 'division', 'decimals', 'integers'])
     const starts = number.map((id) => gradeRange(mathModules.find((m) => m.id === id)!)[0])
     expect(starts).toEqual([...starts].sort((a, b) => a - b))
   })
