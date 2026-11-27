@@ -1,6 +1,6 @@
 import { BADGE_IDS, MODULE_CHALLENGES, evaluateBadges } from '../data/badges'
 import { TIERS, type Tier } from '../data/challenges'
-import type { MathModuleId } from '../data/mathModules'
+import { mathModules, type MathModuleId } from '../data/mathModules'
 import { XP_BY_TIER } from '../data/xp'
 
 /**
@@ -62,7 +62,7 @@ export interface ProgressState {
   updatedAt: number
 }
 
-const MODULE_IDS: MathModuleId[] = ['fractions', 'geometry', 'number-sense']
+const MODULE_IDS: MathModuleId[] = mathModules.map((m) => m.id)
 const VIEWS: ProgressView[] = ['welcome', ...MODULE_IDS]
 
 const defaultModule = (): ModuleProgress => ({ solved: [], tier: 'easy', streak: 0, bestStreak: 0 })
@@ -70,7 +70,7 @@ const defaultModule = (): ModuleProgress => ({ solved: [], tier: 'easy', streak:
 export function defaultProgress(): ProgressState {
   return {
     version: PROGRESS_VERSION,
-    modules: { fractions: defaultModule(), geometry: defaultModule(), 'number-sense': defaultModule() },
+    modules: Object.fromEntries(MODULE_IDS.map((id) => [id, defaultModule()])) as Record<MathModuleId, ModuleProgress>,
     badges: {},
     xp: 0,
     missions: {},
@@ -165,11 +165,7 @@ export function migrateProgress(raw: unknown): ProgressState {
 /** Add any newly deserved badges (stamped with `now`); returns the same object when nothing changed. */
 export function awardBadges(state: ProgressState, now = Date.now()): ProgressState {
   const ctx = {
-    solved: {
-      fractions: state.modules.fractions.solved,
-      geometry: state.modules.geometry.solved,
-      'number-sense': state.modules['number-sense'].solved,
-    },
+    solved: Object.fromEntries(MODULE_IDS.map((id) => [id, state.modules[id].solved])) as Record<MathModuleId, string[]>,
     bestStreak: Math.max(...MODULE_IDS.map((m) => state.modules[m].bestStreak)),
   }
   const fresh = evaluateBadges(ctx).filter((id) => !(id in state.badges))

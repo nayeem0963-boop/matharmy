@@ -17,7 +17,7 @@ describe('xp and levels', () => {
     [50, 2, 0, 100],
     [149, 2, 99, 100],
     [150, 3, 0, 150],
-    [720, 5, 220, 250], // every current challenge solved = 720 XP
+    [720, 5, 220, 250],
   ])('%i XP -> level %i (%i into a %i span)', (xp, level, into, span) => {
     expect(levelFromXp(xp)).toEqual({ level, into, span })
   })
@@ -30,10 +30,10 @@ describe('xp and levels', () => {
     expect(top).toEqual({ level: MAX_LEVEL, into: 5000, span: 0 })
   })
 
-  it('all current challenges are worth 720 XP', () => {
+  it('all current challenges are worth 960 XP', () => {
     const total = Object.values(MODULE_CHALLENGES)
       .flat()
       .reduce((n, c) => n + XP_BY_TIER[c.tier], 0)
-    expect(total).toBe(720)
+    expect(total).toBe(960)
   })
 })

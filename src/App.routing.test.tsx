@@ -28,6 +28,7 @@ describe('hash navigation', () => {
     ['#/fractions', 'Fractions'],
     ['#/geometry', 'Geometry 3D Explorer'],
     ['#/number-sense', 'Number Sense'],
+    ['#/add-subtract', 'Add & Subtract'],
   ])('a link to %s opens that module directly', async (hash, title) => {
     window.location.hash = hash
     render(<App />)
@@ -85,10 +86,10 @@ describe('Academy shell', () => {
   it('lists every registered module as a tab and a welcome card', async () => {
     render(<App />)
     await heading()
-    for (const name of ['Fractions', 'Geometry', 'Number Sense']) {
+    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract']) {
       expect(screen.getByRole('button', { name })).toBeTruthy()
     }
-    expect(document.querySelectorAll('.module-card')).toHaveLength(3)
+    expect(document.querySelectorAll('.module-card')).toHaveLength(4)
   })
 
   it('themes the controls with the active module colour (and not on the welcome page)', async () => {

@@ -8,17 +8,21 @@ import {
   type BadgeContext,
 } from './badges'
 import { fractionChallenges, geometryChallenges } from './challenges'
+import { addSubtractChallenges } from './addSubtract'
 import { numberSenseChallenges } from './placeValue'
 
 const ids = (list: { id: string }[]) => list.map((c) => c.id)
-const empty = (): BadgeContext => ({ solved: { fractions: [], geometry: [], 'number-sense': [] }, bestStreak: 0 })
+const empty = (): BadgeContext => ({
+  solved: { fractions: [], geometry: [], 'number-sense': [], 'add-subtract': [] },
+  bestStreak: 0,
+})
 const earned = (ctx: BadgeContext) => evaluateBadges(ctx)
 
 describe('badge catalogue', () => {
   it('keeps the saved-progress badge ids unchanged', () => {
     expect(BADGE_IDS).toEqual([
       'first-steps', 'fraction-finder', 'fraction-master', 'shape-shifter', 'geometry-master',
-      'place-value-pro', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
+      'place-value-pro', 'add-subtract-pro', 'hot-streak', 'unstoppable', 'hard-mode-hero', 'matharmy-general',
     ])
   })
   it('has unique ids and complete metadata', () => {
@@ -35,6 +39,7 @@ describe('badge catalogue', () => {
     expect(ids(MODULE_CHALLENGES.fractions)).toEqual(ids(fractionChallenges))
     expect(ids(MODULE_CHALLENGES.geometry)).toEqual(ids(geometryChallenges))
     expect(ids(MODULE_CHALLENGES['number-sense'])).toEqual(ids(numberSenseChallenges))
+    expect(ids(MODULE_CHALLENGES['add-subtract'])).toEqual(ids(addSubtractChallenges))
   })
 })
 
@@ -108,12 +113,21 @@ describe('badge rules', () => {
     expect(earned(c)).toEqual([])
   })
 
+  it('Add & Subtract Pro needs every Add & Subtract challenge', () => {
+    const c = empty()
+    c.solved['add-subtract'] = ids(addSubtractChallenges).slice(1)
+    expect(earned(c)).not.toContain('add-subtract-pro')
+    c.solved['add-subtract'] = ids(addSubtractChallenges)
+    expect(earned(c)).toContain('add-subtract-pro')
+  })
+
   it('MathArmy General needs every challenge in every module, and then earns every badge except streak-only ones that need the streak', () => {
     const c = empty()
     c.solved = {
       fractions: ids(fractionChallenges),
       geometry: ids(geometryChallenges),
       'number-sense': ids(numberSenseChallenges),
+      'add-subtract': ids(addSubtractChallenges),
     }
     expect(earned(c)).toContain('matharmy-general')
     c.solved.geometry = c.solved.geometry.slice(1)

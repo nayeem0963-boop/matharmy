@@ -1,5 +1,6 @@
 import { fractionChallenges, geometryChallenges, isFractionSolved, type GeometryState } from '../data/challenges'
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
+import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
 import {
   isNumberSenseSolved,
@@ -32,9 +33,19 @@ export const numberSenseSet: ChallengeSet<NumberSenseChallenge, PlaceValueCounts
   isSolved: isNumberSenseSolved,
 }
 
+/** Add & Subtract state is a lookup: the mat the learner has built for a given sum. */
+export type MatLookup = (op: Operation, a: number, b: number) => Mat
+
+export const addSubtractSet: ChallengeSet<AddSubtractChallenge, MatLookup> = {
+  module: 'add-subtract',
+  challenges: addSubtractChallenges,
+  isSolved: (c, matFor) => isFinished(matFor(c.op, c.a, c.b), c.op, c.a, c.b),
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
   geometry: geometrySet.challenges,
   'number-sense': numberSenseSet.challenges,
+  'add-subtract': addSubtractSet.challenges,
 }

@@ -75,6 +75,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'number-sense'),
   },
   {
+    id: 'add-subtract-pro',
+    icon: '➕',
+    title: 'Add & Subtract Pro',
+    description: 'Solve all Add & Subtract challenges.',
+    earned: (c) => allIn(c, 'add-subtract'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',
