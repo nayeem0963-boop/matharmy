@@ -124,6 +124,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'data-graphs'),
   },
   {
+    id: 'angle-ace',
+    icon: '📐',
+    title: 'Angle Ace',
+    description: 'Solve all Angles challenges.',
+    earned: (c) => allIn(c, 'angles'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

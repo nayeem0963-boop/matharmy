@@ -1,0 +1,40 @@
+/* Angles: protractor labels and the readout lines */
+.angle-label {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: var(--text-h);
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.angle-label--main {
+  color: #fb923c;
+  border-color: rgba(251, 146, 60, 0.6);
+  font-size: 16px;
+  font-weight: 700;
+}
+.angle-name {
+  color: #fb923c;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.angle-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.angle-jumps button {
+  flex: 1 0 auto;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.angle-jumps button:hover {
+  border-color: var(--module-color);
+}
