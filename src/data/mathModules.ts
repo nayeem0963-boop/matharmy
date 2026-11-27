@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -112,6 +112,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#818cf8',
     skills: ['Area', 'Perimeter', 'Rectangles', 'Composite L-shapes'],
+  },
+  {
+    id: 'decimals',
+    title: 'Decimals and Percentages',
+    tabLabel: 'Decimals',
+    tagline: 'One amount, three ways',
+    description:
+      'Shade a hundred grid and read the same amount as a decimal, a fraction and a percent. Tenths are columns, hundredths are single squares.',
+    gradeBand: 'Grades 4–7',
+    status: 'available',
+    color: '#e879f9',
+    skills: ['Tenths and hundredths', 'Decimals', 'Percentages', 'Fractions as decimals'],
   },
 ]
 
