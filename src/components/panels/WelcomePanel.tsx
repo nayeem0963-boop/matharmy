@@ -134,18 +134,22 @@ export function WelcomePanel({
         })}
       </ul>
 
-      <h2 className="welcome__heading">Coming soon</h2>
-      <ul className="upcoming">
-        {upcomingModules.map((u) => (
-          <li key={u.title} className="upcoming__item" style={{ '--card-color': u.color } as CSSProperties}>
-            <span className="module-card__dot" aria-hidden="true" />
-            <span>
-              <strong>{u.title}</strong>
-              <span className="upcoming__tagline">{u.tagline}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+      {upcomingModules.length > 0 && (
+        <>
+        <h2 className="welcome__heading">Coming soon</h2>
+        <ul className="upcoming">
+          {upcomingModules.map((u) => (
+            <li key={u.title} className="upcoming__item" style={{ '--card-color': u.color } as CSSProperties}>
+              <span className="module-card__dot" aria-hidden="true" />
+              <span>
+                <strong>{u.title}</strong>
+                <span className="upcoming__tagline">{u.tagline}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        </>
+      )}
 
       <p className="hint">Tip: click the Captain to say hi.</p>
       {totalStars > 0 && (

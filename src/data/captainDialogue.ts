@@ -31,6 +31,7 @@ const TIPS: Record<MathModuleId, string[]> = {
   'add-subtract': ['Stuck on subtracting? Break a ten into ten ones.', 'Ten ones make a ten. Trade them when you add.'],
   multiplication: ['Swap rows and columns: 3 × 4 and 4 × 3 match!', 'Click a cube to skip count up to its row.'],
   'data-graphs': ['The mean shares the total out equally. Try the mean line!', 'Put the counts in order to find the median.'],
+  'coordinate-plane': ['Say x first, then y: across, then up.', 'A flip changes a sign; a slide adds or subtracts.'],
   angles: ['Click the protractor to turn the ray!', 'A right angle is the corner of a square: 90°.'],
   decimals: ['A column is a tenth, a single square is a hundredth.', '50% and 0.5 and 1/2 are the same amount!'],
   'area-perimeter': ['Area counts tiles inside. Perimeter counts edges around.', 'Cut a corner off an L-shape: the area shrinks, the perimeter stays!'],

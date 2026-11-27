@@ -25,6 +25,7 @@ export const MODULE_STRAND: Record<MathModuleId, StrandId> = {
   geometry: 'geometry',
   'area-perimeter': 'geometry',
   angles: 'geometry',
+  'coordinate-plane': 'geometry',
   patterns: 'thinking',
   'data-graphs': 'thinking',
 }

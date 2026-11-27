@@ -449,12 +449,13 @@ Still not built: missions, lessons, student profiles, export/import of progress.
 - **Decimals and Percentages** (grades 4-7): a 100-square grid shaded by tenths (columns) and hundredths (squares), read as a decimal, a fraction in lowest terms and a percent at once, 12 challenges including comparisons across forms, a badge.
 - **Data and Graphs** (grades 2-7): a five-bar graph with three topics, the counts read as a data set (total, mean, median, mode, range, tallest), an optional mean line, 12 challenges including two-fact ones, a badge.
 - **Angles** (grades 3-7): a 3D protractor you can click to turn the ray, angles named (acute, right, obtuse, straight, reflex, full turn), complement / supplement / full-turn partners, share of a turn, 12 challenges, a badge. Replaces the 'Coming soon' teaser.
+- **Coordinate Plane** (grades 5-7): a -6..6 plane with plotted points (click or steppers), quadrants, distances from the axes, and a triangle you can slide, flip and turn (with its faint starting copy and a move history), 12 challenges, a badge. It was the last 'Coming soon' teaser, so that list is gone.
 - **Welcome page organised**: module cards grouped under the three curriculum strands (Number and Operations, Geometry and Measurement, Mathematical Thinking), sorted by starting grade, with an All / 1-2 / 3-4 / 5-7 grade filter. The card design is unchanged. A type-checked map makes adding a module without choosing its strand an error.
 - With ten module tabs the header now scrolls sideways in one row (it had grown to 224 px tall when wrapped) and keeps the active tab in view.
 - XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. Next modules in value order: the Coordinate Plane, Integers and Number Lines, Probability, then Symmetry and Transformations.
+1. Next modules in value order: Integers and Number Lines, Probability, Symmetry and Transformations, then Algebraic Balance.
 2. Missions and lessons on top of the stored `missions` / `lessons` containers.
 3. Progress export/import (JSON file) so a learner can move devices without a backend.
 4. A real-device performance and screen-reader pass.

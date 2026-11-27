@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter' | 'decimals' | 'data-graphs' | 'angles' | 'coordinate-plane'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -149,6 +149,18 @@ export const mathModules: MathModule[] = [
     color: '#fb923c',
     skills: ['Measuring angles', 'Types of angle', 'Complementary and supplementary', 'Turns'],
   },
+  {
+    id: 'coordinate-plane',
+    title: 'Coordinate Plane',
+    tabLabel: 'Coordinates',
+    tagline: 'Plot, slide, flip and turn',
+    description:
+      'Plot points in all four quadrants, then slide, flip and turn a triangle and watch its corners change. Always x first, then y.',
+    gradeBand: 'Grades 5–7',
+    status: 'available',
+    color: '#a78bfa',
+    skills: ['Ordered pairs', 'Four quadrants', 'Slides, flips and turns'],
+  },
 ]
 
 /** Teasers for the welcome page; not selectable yet. */
@@ -159,7 +171,6 @@ export interface UpcomingModule {
 }
 
 export const upcomingModules: UpcomingModule[] = [
-  { title: 'Coordinate Plane', tagline: 'Plot, slide, flip and turn', color: '#a78bfa' },
 ]
 
 export const getModule = (id: MathModuleId): MathModule =>

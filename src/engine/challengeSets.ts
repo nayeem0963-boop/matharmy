@@ -2,6 +2,7 @@ import { fractionChallenges, geometryChallenges, isFractionSolved, type Geometry
 import type { FractionChallenge, GeometryChallenge } from '../data/challenges'
 import { addSubtractChallenges, isFinished, type AddSubtractChallenge, type Mat, type Operation } from '../data/addSubtract'
 import type { MathModuleId } from '../data/mathModules'
+import { isPlaneSolved, planeChallenges, type PlaneChallenge, type PlaneView } from '../data/coordinatePlane'
 import { angleChallenges, isAngleSolved, type AngleChallenge, type AngleState } from '../data/angles'
 import { graphChallenges, isGraphSolved, type GraphChallenge, type GraphState } from '../data/dataGraphs'
 import { decimalChallenges, isDecimalSolved, type DecimalChallenge, type DecimalState } from '../data/decimals'
@@ -91,6 +92,12 @@ export const angleSet: ChallengeSet<AngleChallenge, AngleState> = {
   isSolved: isAngleSolved,
 }
 
+export const planeSet: ChallengeSet<PlaneChallenge, PlaneView> = {
+  module: 'coordinate-plane',
+  challenges: planeChallenges,
+  isSolved: isPlaneSolved,
+}
+
 /** Every module's challenges (used for badge rules, XP and tier lookups). */
 export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   fractions: fractionSet.challenges,
@@ -104,4 +111,5 @@ export const MODULE_CHALLENGES: Record<MathModuleId, ChallengeLike[]> = {
   decimals: decimalSet.challenges,
   'data-graphs': graphSet.challenges,
   angles: angleSet.challenges,
+  'coordinate-plane': planeSet.challenges,
 }
