@@ -1,0 +1,9 @@
+/* Area and Perimeter: the perimeter figure takes the edge colour */
+.area-perimeter {
+  color: #fb923c;
+}
+.formula-overlay small {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}

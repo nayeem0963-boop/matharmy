@@ -103,6 +103,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'patterns'),
   },
   {
+    id: 'area-ace',
+    icon: '📏',
+    title: 'Area & Perimeter Ace',
+    description: 'Solve all Area and Perimeter challenges.',
+    earned: (c) => allIn(c, 'area-perimeter'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

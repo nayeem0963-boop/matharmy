@@ -445,10 +445,11 @@ Still not built: missions, lessons, student profiles, export/import of progress.
 - **Multiplication Arrays** (grades 2-5): rows x columns grid of cubes, skip counting by clicking a row, swap rows and columns, repeated addition and fact family, 12 challenges, a badge. It was the teaser on the welcome page and is now a real card.
 - **Division and Grouping** (grades 3-5): share cubes equally or make groups of a set size, quotient and remainder, the multiplication check, 12 challenges, a badge. Builds on arrays: one row per group, left-overs in red.
 - **Patterns and Sequences** (grades 1-6): add or multiply the same amount each time, shown as bars, jump to any term, the rule for the n-th term, 12 challenges, a badge.
+- **Area and Perimeter** (grades 3-6): rectangles and L-shapes on a grid, area as tiles and perimeter as boundary edges, composite shapes (cutting a corner changes area but not perimeter), largest-area and smallest-perimeter challenges, 12 challenges, a badge.
 - XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. Next modules in value order: Area and Perimeter, Decimals and Percentages, then Data and Graphs.
+1. Next modules in value order: Decimals and Percentages, Data and Graphs, then Angles and the Coordinate Plane.
 2. Missions and lessons on top of the stored `missions` / `lessons` containers.
 3. Progress export/import (JSON file) so a learner can move devices without a backend.
 4. A real-device performance and screen-reader pass.

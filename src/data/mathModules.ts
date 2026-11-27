@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication' | 'division' | 'patterns' | 'area-perimeter'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -100,6 +100,18 @@ export const mathModules: MathModule[] = [
     status: 'available',
     color: '#fb7185',
     skills: ['Number patterns', 'Skip counting', 'Rules and terms', 'Doubling and growth'],
+  },
+  {
+    id: 'area-perimeter',
+    title: 'Area and Perimeter',
+    tabLabel: 'Area',
+    tagline: 'Count the tiles, trace the edge',
+    description:
+      'Build rectangles and L-shapes on a grid. Count the squares inside for area and the edges around the outside for perimeter, and see how they differ.',
+    gradeBand: 'Grades 3–6',
+    status: 'available',
+    color: '#818cf8',
+    skills: ['Area', 'Perimeter', 'Rectangles', 'Composite L-shapes'],
   },
 ]
 

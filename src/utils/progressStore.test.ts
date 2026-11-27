@@ -25,7 +25,7 @@ describe('defaultProgress', () => {
     expect(p.soundOn).toBe(true)
     expect(p.lastView).toBe('welcome')
     for (const m of Object.values(p.modules)) expect(m).toEqual({ solved: [], tier: 'easy', streak: 0, bestStreak: 0 })
-    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract', 'multiplication', 'division', 'patterns'])
+    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract', 'multiplication', 'division', 'patterns', 'area-perimeter'])
   })
   it('returns a fresh object every call', () => {
     expect(defaultProgress()).not.toBe(defaultProgress())
@@ -79,7 +79,7 @@ describe('migrateProgress', () => {
       lastView: 'number-sense',
       updatedAt: 222,
     }
-    // modules added later (Add & Subtract, Multiplication Arrays, Division, Patterns) start empty
+    // modules added later (Add & Subtract, Multiplication Arrays, Division, Patterns, Area) start empty
     expect(migrateProgress(v2)).toEqual({
       ...v2,
       version: 3,
@@ -92,6 +92,7 @@ describe('migrateProgress', () => {
         multiplication: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
         division: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
         patterns: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
+        'area-perimeter': { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
       },
     })
   })

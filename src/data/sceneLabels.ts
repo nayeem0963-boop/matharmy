@@ -1,3 +1,4 @@
+import { SHAPE_LABELS, areaOf, perimeterOf, type AreaState } from './areaPerimeter'
 import { TERMS_SHOWN, ruleSentence, termAt, termsOf, type PatternState } from './patterns'
 import { describe as describeDivision, type DivisionState } from './division'
 import { OPERATION_SYMBOL, type Operation } from './addSubtract'
@@ -43,4 +44,10 @@ export function divisionLabel(s: DivisionState): string {
 
 export function patternLabel(p: PatternState, findN: number): string {
   return `A bar for each of the first ${TERMS_SHOWN} terms: ${termsOf(p).join(', ')}. ${ruleSentence(p)}. Term ${findN} is ${termAt(p, findN)}.`
+}
+
+export function areaLabel(s: AreaState, showArea: boolean, showPerimeter: boolean): string {
+  const what = s.shape === 'rect' ? `A rectangle ${s.w} wide and ${s.h} tall` : `An L-shape in a ${s.w} by ${s.h} box with a ${s.nw} by ${s.nh} notch cut from one corner`
+  const shown = [showArea ? 'unit tiles for the area' : '', showPerimeter ? 'orange edges for the perimeter' : ''].filter(Boolean).join(' and ')
+  return `${what}, seen from above${shown ? ` with ${shown}` : ''}. Area ${areaOf(s)} square units, perimeter ${perimeterOf(s)} units. (${SHAPE_LABELS[s.shape]})`
 }

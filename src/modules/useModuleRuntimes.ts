@@ -1,4 +1,5 @@
 import { useAddSubtractModule } from './add-subtract/useAddSubtractModule'
+import { useAreaPerimeterModule } from './area-perimeter/useAreaPerimeterModule'
 import { useDivisionModule } from './division/useDivisionModule'
 import { useFractionsModule } from './fractions/useFractionsModule'
 import { useGeometryModule } from './geometry/useGeometryModule'
@@ -20,5 +21,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const multiplication = useMultiplicationModule(progress)
   const division = useDivisionModule(progress)
   const patterns = usePatternsModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns }
+  const areaPerimeter = useAreaPerimeterModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns, 'area-perimeter': areaPerimeter }
 }
