@@ -153,9 +153,8 @@ describe('Multiplication Arrays: welcome page and Captain', () => {
     render(<App />)
     await screen.findByRole('heading', { level: 1 })
     expect(screen.getByRole('button', { name: /Multiplication Arrays/ })).toBeTruthy()
-    const upcoming = document.querySelector('.upcoming')!
-    expect(upcoming.textContent).not.toContain('Multiplication Arrays')
-    expect(upcoming.textContent).toContain('Coordinate Plane')
+    // every teaser has become a real module, so there is no "Coming soon" list left
+    expect(document.querySelector('.upcoming')).toBeNull()
   })
 
   it('the Captain gives a multiplication tip', async () => {

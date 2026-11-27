@@ -131,6 +131,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'angles'),
   },
   {
+    id: 'plane-pilot',
+    icon: '🧭',
+    title: 'Plane Pilot',
+    description: 'Solve all Coordinate Plane challenges.',
+    earned: (c) => allIn(c, 'coordinate-plane'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

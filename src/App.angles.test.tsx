@@ -154,9 +154,7 @@ describe('Angles: welcome and Captain', () => {
     await screen.findByRole('heading', { level: 1 })
     const cards = [...document.querySelectorAll('.module-card')]
     expect(cards.some((b) => b.textContent?.includes('Turn the ray, name the angle'))).toBe(true)
-    const upcoming = document.querySelector('.upcoming')!
-    expect(upcoming.textContent).not.toContain('Angles')
-    expect(upcoming.textContent).toContain('Coordinate Plane')
+    expect(document.querySelector('.upcoming')).toBeNull()
   })
   it('the Captain gives an angles tip', async () => {
     await open()

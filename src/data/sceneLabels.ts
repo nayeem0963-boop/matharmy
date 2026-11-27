@@ -1,3 +1,4 @@
+import { TRIANGLE_NAMES, locationText, pairText, type PlaneMode, type Vec } from './coordinatePlane'
 import { KIND_NAMES, classify, turnFraction } from './angles'
 import { formatStat, meanOf, medianOf, rangeOf, totalOf, type Topic } from './dataGraphs'
 import { decimalText, fractionText, percentText, placeWords } from './decimals'
@@ -66,4 +67,10 @@ export function graphLabel(topic: Topic, values: number[], showMean: boolean): s
 
 export function angleLabel(angle: number): string {
   return `A protractor seen from above. A fixed ray points right and a second ray is turned counterclockwise by ${angle} degrees: a ${KIND_NAMES[classify(angle)]}, ${turnFraction(angle)} of a full turn. Click the protractor to turn the ray.`
+}
+
+export function planeLabel(mode: PlaneMode, point: Vec, triangle: Vec[]): string {
+  const grid = 'A coordinate plane seen from above, from -6 to 6 on both axes.'
+  if (mode === 'plot') return `${grid} A point at ${pairText(point)}, ${locationText(point)}. Click the plane to move it.`
+  return `${grid} A triangle with corners ${triangle.map((c, i) => `${TRIANGLE_NAMES[i]} at ${pairText(c)}`).join(', ')}, and a faint copy where it started.`
 }

@@ -1,0 +1,88 @@
+/* Coordinate Plane: axis labels, the move pad and the history list */
+.plane-label {
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.plane-label--point {
+  color: #fde047;
+  border: 1px solid rgba(253, 224, 71, 0.5);
+  font-size: 13px;
+  font-weight: 700;
+}
+.plane-label--corner {
+  color: var(--text-h);
+  border: 1px solid rgba(167, 139, 250, 0.6);
+  font-size: 12px;
+}
+.move-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 4px;
+  justify-content: start;
+}
+.move-pad button,
+.move-actions button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.move-pad button:disabled,
+.move-actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.move-pad button:not(:disabled):hover,
+.move-actions button:not(:disabled):hover {
+  border-color: var(--module-color);
+}
+.move-pad__up { grid-area: 1 / 2; }
+.move-pad__left { grid-area: 2 / 1; }
+.move-pad__right { grid-area: 2 / 3; }
+.move-pad__down { grid-area: 3 / 2; }
+.move-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.move-actions button {
+  padding: 8px;
+  font-size: 13px;
+  text-align: left;
+}
+.plane-history {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--text);
+}
+.plane-corners {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.plane-corners dt {
+  color: var(--muted);
+}
+.plane-corners dd {
+  margin: 0;
+  color: var(--text-h);
+  font-weight: 600;
+}
+
+/* Readout lines that must stay visible on phones (the generic working lines are hidden there) */
+.plane-note {
+  font-size: 13px;
+  color: var(--text);
+}
