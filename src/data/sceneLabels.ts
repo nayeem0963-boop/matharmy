@@ -1,3 +1,4 @@
+import { TERMS_SHOWN, ruleSentence, termAt, termsOf, type PatternState } from './patterns'
 import { describe as describeDivision, type DivisionState } from './division'
 import { OPERATION_SYMBOL, type Operation } from './addSubtract'
 import { formatNumber, type ShapeDefinition, type ShapeMetrics } from './geometryShapes'
@@ -38,4 +39,8 @@ export function arrayLabel(rows: number, cols: number, counted: number): string 
 
 export function divisionLabel(s: DivisionState): string {
   return `Cubes laid out in rows, one row per group, with any left-over cubes in red in a separate row. ${describeDivision(s)}.`
+}
+
+export function patternLabel(p: PatternState, findN: number): string {
+  return `A bar for each of the first ${TERMS_SHOWN} terms: ${termsOf(p).join(', ')}. ${ruleSentence(p)}. Term ${findN} is ${termAt(p, findN)}.`
 }

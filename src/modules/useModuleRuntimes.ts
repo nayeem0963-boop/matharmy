@@ -3,6 +3,7 @@ import { useDivisionModule } from './division/useDivisionModule'
 import { useFractionsModule } from './fractions/useFractionsModule'
 import { useGeometryModule } from './geometry/useGeometryModule'
 import { useMultiplicationModule } from './multiplication/useMultiplicationModule'
+import { usePatternsModule } from './patterns/usePatternsModule'
 import { useNumberSenseModule } from './number-sense/useNumberSenseModule'
 import type { ModuleRuntimes, ProgressApi } from './types'
 
@@ -18,5 +19,6 @@ export function useModuleRuntimes(progress: ProgressApi): ModuleRuntimes {
   const addSubtract = useAddSubtractModule(progress)
   const multiplication = useMultiplicationModule(progress)
   const division = useDivisionModule(progress)
-  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division }
+  const patterns = usePatternsModule(progress)
+  return { fractions, geometry, 'number-sense': numberSense, 'add-subtract': addSubtract, multiplication, division, patterns }
 }

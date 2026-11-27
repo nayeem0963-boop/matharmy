@@ -1,0 +1,29 @@
+/* Patterns and Sequences: bar labels and the readout */
+.pattern-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: var(--text-h);
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.pattern-label__term {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.pattern-terms {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fde047;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}

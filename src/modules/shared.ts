@@ -9,3 +9,4 @@ export const GeometryExplorerScene = lazy(() => import('../components/scenes/Geo
 export const PlaceValueScene = lazy(() => import('../components/scenes/PlaceValueScene'))
 export const ArrayScene = lazy(() => import('../components/scenes/ArrayScene'))
 export const DivisionScene = lazy(() => import('../components/scenes/DivisionScene'))
+export const PatternScene = lazy(() => import('../components/scenes/PatternScene'))
