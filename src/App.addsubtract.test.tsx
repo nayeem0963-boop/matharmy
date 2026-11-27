@@ -2,6 +2,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
+import { mathModules } from './data/mathModules'
 import { PROGRESS_STORAGE_KEY, defaultProgress, type ProgressState } from './utils/progressStore'
 
 vi.mock('./components/canvas/MathCanvas', () => ({
@@ -137,7 +138,7 @@ describe('Add & Subtract: challenges', () => {
   it('shows the module on the welcome page with its stars and a new badge', async () => {
     window.location.hash = ''
     render(<App />)
-    expect(await screen.findAllByLabelText('0 of 12 challenges solved')).toHaveLength(4) // one card per module
+    expect(await screen.findAllByLabelText('0 of 12 challenges solved')).toHaveLength(mathModules.length) // one card per module
     expect(screen.getByText('Add & Subtract Pro')).toBeTruthy()
     const cards = within(document.querySelector('.module-cards') as HTMLElement).getAllByRole('button')
     expect(cards.map((c) => c.textContent)).toEqual(expect.arrayContaining([expect.stringContaining('Add & Subtract')]))

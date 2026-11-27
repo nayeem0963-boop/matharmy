@@ -82,6 +82,13 @@ export const BADGES: BadgeDef[] = [
     earned: (c) => allIn(c, 'add-subtract'),
   },
   {
+    id: 'array-architect',
+    icon: '🧱',
+    title: 'Array Architect',
+    description: 'Solve all Multiplication Arrays challenges.',
+    earned: (c) => allIn(c, 'multiplication'),
+  },
+  {
     id: 'hot-streak',
     icon: '🔥',
     title: 'Hot Streak',

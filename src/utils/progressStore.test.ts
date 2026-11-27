@@ -25,7 +25,7 @@ describe('defaultProgress', () => {
     expect(p.soundOn).toBe(true)
     expect(p.lastView).toBe('welcome')
     for (const m of Object.values(p.modules)) expect(m).toEqual({ solved: [], tier: 'easy', streak: 0, bestStreak: 0 })
-    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract'])
+    expect(Object.keys(p.modules)).toEqual(['fractions', 'geometry', 'number-sense', 'add-subtract', 'multiplication'])
   })
   it('returns a fresh object every call', () => {
     expect(defaultProgress()).not.toBe(defaultProgress())
@@ -79,14 +79,18 @@ describe('migrateProgress', () => {
       lastView: 'number-sense',
       updatedAt: 222,
     }
-    // the module added later (Add & Subtract) starts empty
+    // modules added later (Add & Subtract, Multiplication Arrays) start empty
     expect(migrateProgress(v2)).toEqual({
       ...v2,
       version: 3,
       xp: 20,
       missions: {},
       lessons: {},
-      modules: { ...v2.modules, 'add-subtract': { solved: [], tier: 'easy', streak: 0, bestStreak: 0 } },
+      modules: {
+        ...v2.modules,
+        'add-subtract': { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
+        multiplication: { solved: [], tier: 'easy', streak: 0, bestStreak: 0 },
+      },
     })
   })
 

@@ -2,6 +2,7 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
+import { mathModules } from './data/mathModules'
 import { PROGRESS_STORAGE_KEY, defaultProgress, type ProgressState } from './utils/progressStore'
 
 vi.mock('./components/canvas/MathCanvas', () => ({
@@ -33,6 +34,7 @@ describe('hash navigation', () => {
     ['#/geometry', 'Geometry 3D Explorer'],
     ['#/number-sense', 'Number Sense'],
     ['#/add-subtract', 'Add & Subtract'],
+    ['#/multiplication', 'Multiplication Arrays'],
   ])('a link to %s opens that module directly', async (hash, title) => {
     window.location.hash = hash
     render(<App />)
@@ -103,10 +105,10 @@ describe('Academy shell', () => {
   it('lists every registered module as a tab and a welcome card', async () => {
     render(<App />)
     await heading()
-    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract']) {
+    for (const name of ['Fractions', 'Geometry', 'Number Sense', 'Add & Subtract', 'Multiply']) {
       expect(screen.getByRole('button', { name })).toBeTruthy()
     }
-    expect(document.querySelectorAll('.module-card')).toHaveLength(4)
+    expect(document.querySelectorAll('.module-card')).toHaveLength(mathModules.length)
   })
 
   it('themes the controls with the active module colour (and not on the welcome page)', async () => {

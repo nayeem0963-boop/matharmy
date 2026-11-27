@@ -29,6 +29,7 @@ const TIPS: Record<MathModuleId, string[]> = {
   geometry: ['Try unfolding a solid into its net.', 'Watch how volume changes when you stretch one side.'],
   'number-sense': ['Ten ones make a ten. Try trading them!', 'Zeros hold the places. 406 has no tens.'],
   'add-subtract': ['Stuck on subtracting? Break a ten into ten ones.', 'Ten ones make a ten. Trade them when you add.'],
+  multiplication: ['Swap rows and columns: 3 × 4 and 4 × 3 match!', 'Click a cube to skip count up to its row.'],
 }
 
 /** The n-th line for an event; cycles through the list so repeats vary but stay predictable. */
