@@ -1,4 +1,4 @@
-export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract'
+export type MathModuleId = 'fractions' | 'geometry' | 'number-sense' | 'add-subtract' | 'multiplication'
 
 export type MathModuleStatus = 'available' | 'coming-soon'
 
@@ -65,6 +65,18 @@ export const mathModules: MathModule[] = [
     color: '#14b8a6',
     skills: ['Adding with carrying', 'Subtracting with borrowing', 'Column method'],
   },
+  {
+    id: 'multiplication',
+    title: 'Multiplication Arrays',
+    tabLabel: 'Multiply',
+    tagline: 'Rows × columns as 3D grids',
+    description:
+      'Build rows and columns of cubes. Count row by row, swap the rows and columns, and see the repeated addition and the whole fact family.',
+    gradeBand: 'Grades 2–5',
+    status: 'available',
+    color: '#f472b6',
+    skills: ['Repeated addition', 'Skip counting', 'Order does not matter', 'Fact families'],
+  },
 ]
 
 /** Teasers for the welcome page; not selectable yet. */
@@ -75,7 +87,6 @@ export interface UpcomingModule {
 }
 
 export const upcomingModules: UpcomingModule[] = [
-  { title: 'Multiplication Arrays', tagline: 'Rows × columns as 3D grids', color: '#f472b6' },
   { title: 'Coordinate Plane', tagline: 'Plot, slide, flip and turn', color: '#a78bfa' },
   { title: 'Angles', tagline: 'Measure with a 3D protractor', color: '#fb923c' },
 ]

@@ -29,3 +29,8 @@ export function blocksLabel(counts: PlaceValueCounts): string {
 export function sumLabel(op: Operation, a: number, b: number, counts: PlaceValueCounts): string {
   return `${a} ${OPERATION_SYMBOL[op] === '+' ? 'plus' : 'minus'} ${b}. ${blocksLabel(counts)}`
 }
+
+export function arrayLabel(rows: number, cols: number, counted: number): string {
+  const counting = counted > 0 ? ` The first ${counted} ${counted === 1 ? 'row is' : 'rows are'} highlighted for counting.` : ''
+  return `An array of cubes: ${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}, ${rows * cols} cubes in all, showing ${rows} times ${cols} equals ${rows * cols}.${counting}`
+}

@@ -442,10 +442,11 @@ Still not built: missions, lessons, student profiles, export/import of progress.
 
 ### Done since (Phase 3, first pass)
 - **Add & Subtract** (grades 1-3), the first new module: base-ten blocks, carry/borrow with the existing regroup trades, worked column method, 12 challenges, a badge. Built on the registry, `ChallengeSet` and module hook, as proposed.
+- **Multiplication Arrays** (grades 2-5): rows x columns grid of cubes, skip counting by clicking a row, swap rows and columns, repeated addition and fact family, 12 challenges, a badge. It was the teaser on the welcome page and is now a real card.
 - XP and level meter in the header; the Captain companion; per-component styles; text descriptions of the 3D scenes.
 
 ### Suggested next steps
-1. **Multiplication Arrays** (grades 2-5; already teased on the welcome page), then Patterns and Sequences.
+1. Next modules in value order: Division and Grouping (builds on arrays), Patterns and Sequences, then Area and Perimeter.
 2. Missions and lessons on top of the stored `missions` / `lessons` containers.
 3. Progress export/import (JSON file) so a learner can move devices without a backend.
 4. A real-device performance and screen-reader pass.

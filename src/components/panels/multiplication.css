@@ -1,0 +1,22 @@
+/* Multiplication Arrays: readout lists and the swap button */
+.skip-count {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fde047;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.fact-family {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.swap-btn {
+  width: 100%;
+  justify-content: center;
+}
